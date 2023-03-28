@@ -6,6 +6,7 @@ let speed = 1;
 let acceleratorY = 0;
 
 createCanvas(800, 600);
+frameRate(144);
 
 function backGround() {
   background(0, 110, 255);
@@ -18,7 +19,7 @@ function leftBranch(x, y) {
   push();
   translate(x, y);
   fill(100, 60, 30);
-  rect(10, 0, random(200, 300), 40);
+  rect(10, 0, 300, 40);
   pop();
 }
 function rightBranch() {}
@@ -81,6 +82,6 @@ function draw() {
     speed = 9;
   }
   if (lBranchY > 800) {
-    lBranchY = -50;
+    lBranchY = random(-20, -100);
   }
 }
