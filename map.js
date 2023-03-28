@@ -1,7 +1,7 @@
 let monkeyX = 0;
 let monkeyY = 0;
 let rBranchY = 0;
-let lBranchY = 0;
+let lBranchY = random(500, 0);
 let speed = 1;
 let acceleratorY = 0;
 
@@ -18,7 +18,7 @@ function leftBranch(x, y) {
   push();
   translate(x, y);
   fill(100, 60, 30);
-  rect(10, 0, 225, 40);
+  rect(10, 0, random(200, 300), 40);
   pop();
 }
 function rightBranch() {}
@@ -36,7 +36,7 @@ function accelerator(x, y) {
   push();
   translate(x, y);
   fill(0, 0, 0);
-  rect(10, 20, 40);
+  rect(10, 0, 40);
   pop();
 }
 
@@ -44,9 +44,11 @@ function draw() {
   backGround();
   rightBranch();
   leftBranch(1, lBranchY);
+  accelerator(1, acceleratorY);
   monkey(monkeyX, monkeyY);
   monkeyY = monkeyY + speed;
   lBranchY = lBranchY + speed;
+  acceleratorY = acceleratorY + 1;
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkeyY = monkeyY - speed * 3;
   }
@@ -54,28 +56,31 @@ function draw() {
   if (keyIsDown(DOWN_ARROW)) {
     monkeyY = monkeyY + speed * 3;
   }
-  if (lBranchY > 600) {
+  if (acceleratorY > 600) {
     speed = 2;
   }
-  if (lBranchY > 1200) {
+  if (acceleratorY > 1200) {
     speed = 3;
   }
-  if (lBranchY > 1800) {
+  if (acceleratorY > 1800) {
     speed = 4;
   }
-  if (lBranchY > 2400) {
+  if (acceleratorY > 2400) {
     speed = 5;
   }
-  if (lBranchY > 2800) {
+  if (acceleratorY > 2800) {
     speed = 6;
   }
-  if (lBranchY > 3400) {
+  if (acceleratorY > 3400) {
     speed = 7;
   }
-  if (lBranchY > 4000) {
+  if (acceleratorY > 4000) {
     speed = 8;
   }
-  if (lBranchY > 4600) {
+  if (acceleratorY > 4600) {
     speed = 9;
+  }
+  if (lBranchY > 800) {
+    lBranchY = -50;
   }
 }
