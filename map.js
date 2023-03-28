@@ -1,9 +1,10 @@
 let monkeyX = 0;
 let monkeyY = 0;
-let rBranchY = 0;
+let rBranchY = random(-300, -500);
 let lBranchY = random(500, 0);
 let speed = 1;
 let acceleratorY = 0;
+let score = acceleratorY;
 
 createCanvas(800, 600);
 frameRate(144);
@@ -22,7 +23,13 @@ function leftBranch(x, y) {
   rect(10, 0, 300, 40);
   pop();
 }
-function rightBranch() {}
+function rightBranch(x, y) {
+  push();
+  translate(x, y);
+  fill(100, 60, 30);
+  rect(572, 0, 180, 40);
+  pop();
+}
 
 //monkeyw
 function monkey(x, y) {
@@ -40,15 +47,28 @@ function accelerator(x, y) {
   rect(10, 0, 40);
   pop();
 }
+function score2(s) {
+  push();
+  textSize(32);
+  fill(0, 0, 0);
+  text(s, 10, 30);
+  fill(0, 0, 0, 70);
+  text(s, 10, 60);
+
+  pop();
+}
 
 function draw() {
   backGround();
-  rightBranch();
+  rightBranch(2, rBranchY);
   leftBranch(1, lBranchY);
   accelerator(1, acceleratorY);
+  score2(score);
   monkey(monkeyX, monkeyY);
   monkeyY = monkeyY + speed;
+  score = acceleratorY;
   lBranchY = lBranchY + speed;
+  rBranchY = rBranchY + speed;
   acceleratorY = acceleratorY + 1;
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkeyY = monkeyY - speed * 3;
@@ -83,5 +103,8 @@ function draw() {
   }
   if (lBranchY > 800) {
     lBranchY = random(-20, -100);
+  }
+  if (rBranchY > 800) {
+    rBranchY = random(-220, -400);
   }
 }
