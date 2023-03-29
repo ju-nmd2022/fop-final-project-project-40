@@ -68,7 +68,8 @@ function draw() {
   accelerator(1, acceleratorY);
   score2(score);
   monkey(monkeyX, monkeyY);
-  
+  // boundary(monkeyX);
+   
   score = acceleratorY;
   //score is now smaller
   score =  Math.ceil(score/10);
@@ -78,6 +79,7 @@ function draw() {
   lBranchY = lBranchY + speed;
   rBranchY = rBranchY + speed;
   acceleratorY = acceleratorY + 1;
+  
   // moves on x and y axis if corespondent key is down
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkeyY = monkeyY - speed * 2;
@@ -87,13 +89,15 @@ function draw() {
     monkeyY = monkeyY + speed ;
   }
   if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-    monkeyX = monkeyX - speed ;
+    monkeyX = monkeyX - speed;
+    monkeyX = boundary(monkeyX); // to ensure the monkey inside the boundary
   }
 
   if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-    monkeyX = monkeyX + speed ;
-  }/*
-  if (acceleratorY > 600) {
+    monkeyX = monkeyX + speed;
+    monkeyX = boundary(monkeyX);     
+  }
+/*if (acceleratorY > 600) {
     speed = 2;
   }
   if (acceleratorY > 1200) {
@@ -125,4 +129,18 @@ function draw() {
     rBranchY = random(-220, -400);
   }
 }
+
+//the boundary (does not seem it work but i will recheck it)
+function boundary(monkeyX) {
+  if (monkeyX < 224) {
+    monkeyX = 224;
+  }
+  if (monkeyX > 575) {
+    monkeyX = 575;   
+  }
+  return monkeyX;
+} 
+
+// there is another way to make the boundary but then we need to remake the background.
+// let's see if it's possible.
 
