@@ -2,6 +2,8 @@ let monkeyX = 0;
 let monkeyY = 0;
 let rBranchY = random(-300, -500);
 let lBranchY = random(500, 0);
+let rBranchX = random(180,100);
+let lBranchX = random(100, 10);
 let speed = 1;
 let acceleratorY = 0;
 let score = acceleratorY;
@@ -17,18 +19,18 @@ function backGround() {
   rect(224, 0, 350, height);
 }
 //branches
-function leftBranch(x, y) {
+function leftBranch(x, y, width) {
   push();
   translate(x, y);
   fill(100, 60, 30);
-  rect(10, 0, 300, 100);
+  rect(width, 0, 300, 100);
   pop();
 }
-function rightBranch(x, y) {
+function rightBranch(x, y, width) {
   push();
   translate(x, y);
   fill(100, 60, 30);
-  rect(572, 0, 180, 100);
+  rect(572, 0, width, 100);
   pop();
 }
 
@@ -63,13 +65,12 @@ function score2(s) {
 
 function draw() {
   backGround();
-  rightBranch(2, rBranchY);
-  leftBranch(1, lBranchY);
+  rightBranch(2, rBranchY, rBranchX);
+  leftBranch(1, lBranchY, lBranchX);
   accelerator(1, acceleratorY);
   score2(score);
   monkey(monkeyX, monkeyY);
-  // boundary(monkeyX);
-   
+  
   score = acceleratorY;
   //score is now smaller
   score =  Math.ceil(score/10);
@@ -79,7 +80,6 @@ function draw() {
   lBranchY = lBranchY + speed;
   rBranchY = rBranchY + speed;
   acceleratorY = acceleratorY + 1;
-  
   // moves on x and y axis if corespondent key is down
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkeyY = monkeyY - speed * 2;
@@ -89,17 +89,16 @@ function draw() {
     monkeyY = monkeyY + speed ;
   }
   if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-    monkeyX = monkeyX - speed;
-    monkeyX = boundary(monkeyX); // to ensure the monkey inside the boundary
+    monkeyX = monkeyX - speed ;
   }
 
   if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-    monkeyX = monkeyX + speed;
-    monkeyX = boundary(monkeyX);     
+    monkeyX = monkeyX + speed ;
   }
-/*if (acceleratorY > 600) {
+  if (acceleratorY > 600) {
     speed = 2;
   }
+  /*
   if (acceleratorY > 1200) {
     speed = 3;
   }
@@ -113,22 +112,26 @@ function draw() {
     speed = 6;
   }
   if (acceleratorY > 3400) {
-    speed = 7s
+    speed = 7;
   }
   if (acceleratorY > 4000) {
     speed = 8;
   }
   if (acceleratorY > 4600) {
     speed = 9;
-  }*/
+  }
+  */
   //branches spawn randomly between the two values
   if (lBranchY > 800) {
     lBranchY = random(-100, -150);
+    lBranchX = random(100, 10);
   }
   if (rBranchY > 800) {
     rBranchY = random(-220, -400);
+    rBranchX = random(180,100);
   }
 }
+
 
 //the boundary (does not seem it work but i will recheck it)
 function boundary(monkeyX) {
