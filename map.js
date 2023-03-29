@@ -15,7 +15,9 @@ function backGround() {
   noStroke();
   fill(100, 60, 30);
   rect(224, 0, 350, height);
-}
+} 
+
+//branches
 function leftBranch(x, y) {
   push();
   translate(x, y);
@@ -31,15 +33,16 @@ function rightBranch(x, y) {
   pop();
 }
 
-//monkeyw
+//monkey
 function monkey(x, y) {
   push();
   translate(x, y);
   fill(0, 200, 0);
   rect(375, 400, 50);
-
   pop();
 }
+
+//accelerator
 function accelerator(x, y) {
   push();
   translate(x, y);
@@ -47,14 +50,15 @@ function accelerator(x, y) {
   rect(10, 0, 40);
   pop();
 }
+
+//score
 function score2(s) {
   push();
-  textSize(32);
+  textSize(25);
   fill(0, 0, 0);
-  text(s, 10, 30);
+  text(s, 10, 30); 
   fill(0, 0, 0, 70);
   text(s, 10, 60);
-
   pop();
 }
 
@@ -70,13 +74,21 @@ function draw() {
   lBranchY = lBranchY + speed;
   rBranchY = rBranchY + speed;
   acceleratorY = acceleratorY + 1;
+  
+  //movement
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkeyY = monkeyY - speed * 3;
   }
-
-  if (keyIsDown(DOWN_ARROW)) {
+  if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
     monkeyY = monkeyY + speed * 3;
   }
+  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+    monkeyX = monkeyX - speed * 3;  
+  }
+  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) { 
+    monkeyX = monkeyX + speed * 3; 
+  }
+
   if (acceleratorY > 600) {
     speed = 2;
   }
