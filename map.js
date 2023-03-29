@@ -6,6 +6,7 @@ let speed = 1;
 let acceleratorY = 0;
 let score = acceleratorY;
 
+
 createCanvas(800, 600);
 frameRate(144);
 
@@ -15,34 +16,31 @@ function backGround() {
   noStroke();
   fill(100, 60, 30);
   rect(224, 0, 350, height);
-} 
-
-//branches
+}
 function leftBranch(x, y) {
   push();
   translate(x, y);
   fill(100, 60, 30);
-  rect(10, 0, 300, 40);
+  rect(10, 0, 300, 100);
   pop();
 }
 function rightBranch(x, y) {
   push();
   translate(x, y);
   fill(100, 60, 30);
-  rect(572, 0, 180, 40);
+  rect(572, 0, 180, 100);
   pop();
 }
 
-//monkey
+//monkeyw
 function monkey(x, y) {
   push();
   translate(x, y);
   fill(0, 200, 0);
   rect(375, 400, 50);
+
   pop();
 }
-
-//accelerator
 function accelerator(x, y) {
   push();
   translate(x, y);
@@ -50,15 +48,14 @@ function accelerator(x, y) {
   rect(10, 0, 40);
   pop();
 }
-
-//score
 function score2(s) {
   push();
-  textSize(25);
+  textSize(32);
   fill(0, 0, 0);
-  text(s, 10, 30); 
+  text(s, 10, 30);
   fill(0, 0, 0, 70);
   text(s, 10, 60);
+
   pop();
 }
 
@@ -69,26 +66,26 @@ function draw() {
   accelerator(1, acceleratorY);
   score2(score);
   monkey(monkeyX, monkeyY);
+  score = score / 100;
   monkeyY = monkeyY + speed;
   score = acceleratorY;
   lBranchY = lBranchY + speed;
   rBranchY = rBranchY + speed;
   acceleratorY = acceleratorY + 1;
-  
-  //movement
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
-    monkeyY = monkeyY - speed * 3;
-  }
-  if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
-    monkeyY = monkeyY + speed * 3;
-  }
-  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-    monkeyX = monkeyX - speed * 3;  
-  }
-  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) { 
-    monkeyX = monkeyX + speed * 3; 
+    monkeyY = monkeyY - speed * 2;
   }
 
+  if (keyIsDown(DOWN_ARROW)) {
+    monkeyY = monkeyY + speed ;
+  }
+  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+    monkeyX = monkeyX - speed ;
+  }
+
+  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+    monkeyX = monkeyX + speed ;
+  }/*
   if (acceleratorY > 600) {
     speed = 2;
   }
@@ -112,7 +109,7 @@ function draw() {
   }
   if (acceleratorY > 4600) {
     speed = 9;
-  }
+  }*/
   if (lBranchY > 800) {
     lBranchY = random(-20, -100);
   }
