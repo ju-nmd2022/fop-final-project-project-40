@@ -9,14 +9,14 @@ let score = acceleratorY;
 
 createCanvas(800, 600);
 frameRate(144);
-
+//tree and sky
 function backGround() {
   background(0, 110, 255);
-  //tree
   noStroke();
   fill(100, 60, 30);
   rect(224, 0, 350, height);
 }
+//branches
 function leftBranch(x, y) {
   push();
   translate(x, y);
@@ -32,7 +32,7 @@ function rightBranch(x, y) {
   pop();
 }
 
-//monkeyw
+//monkey
 function monkey(x, y) {
   push();
   translate(x, y);
@@ -41,6 +41,7 @@ function monkey(x, y) {
 
   pop();
 }
+//makes it possible to creates a score and we can controll the speed based its y value  
 function accelerator(x, y) {
   push();
   translate(x, y);
@@ -48,6 +49,7 @@ function accelerator(x, y) {
   rect(10, 0, 40);
   pop();
 }
+//score based on accelerators y value
 function score2(s) {
   push();
   textSize(32);
@@ -66,12 +68,17 @@ function draw() {
   accelerator(1, acceleratorY);
   score2(score);
   monkey(monkeyX, monkeyY);
-  score = score / 100;
-  monkeyY = monkeyY + speed;
+  
   score = acceleratorY;
+  //score is now smaller
+  score =  Math.ceil(score/10);
+ 
+  //monkey and branches moves down crating illution of climbing
+  monkeyY = monkeyY + speed;
   lBranchY = lBranchY + speed;
   rBranchY = rBranchY + speed;
   acceleratorY = acceleratorY + 1;
+  // moves on x and y axis if corespondent key is down
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkeyY = monkeyY - speed * 2;
   }
@@ -102,7 +109,7 @@ function draw() {
     speed = 6;
   }
   if (acceleratorY > 3400) {
-    speed = 7;
+    speed = 7s
   }
   if (acceleratorY > 4000) {
     speed = 8;
@@ -110,10 +117,12 @@ function draw() {
   if (acceleratorY > 4600) {
     speed = 9;
   }*/
+  //branches spawn randomly between the two values
   if (lBranchY > 800) {
-    lBranchY = random(-20, -100);
+    lBranchY = random(-100, -150);
   }
   if (rBranchY > 800) {
     rBranchY = random(-220, -400);
   }
 }
+
