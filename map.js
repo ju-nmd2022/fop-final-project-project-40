@@ -94,11 +94,10 @@ function draw() {
   if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
     monkeyX = monkeyX + speed;
   }
-
   if (acceleratorY > 600) {
     speed = 2;
   }
-
+  /*
   if (acceleratorY > 1200) {
     speed = 3;
   }
@@ -120,9 +119,8 @@ function draw() {
   if (acceleratorY > 4600) {
     speed = 9;
   }
-
+  */
   //branches spawn randomly between the two values
-
   if (lBranchY > 800) {
     lBranchY = random(-100, -150);
     lBranchX = random(100, 10);
@@ -131,23 +129,6 @@ function draw() {
     rBranchY = random(-220, -400);
     rBranchX = random(180, 100);
   }
-  //walls
-  if (
-    (monkeyX < -155 && monkeyY + 420 < lBranchY) ||
-    (monkeyX < -155 && monkeyY + 340 > lBranchY)
-  ) {
-    monkeyX = -155;
-  }
-  if (
-    (monkeyX > 155 && monkeyY + 420 < rBranchY) ||
-    (monkeyX > 155 && monkeyY + 340 > rBranchY)
-  ) {
-    monkeyX = 155;
-  }
-  //Left walls
-  if (monkeyX < lBranchX - 380) {
-    monkeyX = lBranchX - 380;
-  }
   if (monkeyX < -155 && monkeyY + 415 < lBranchY) {
     monkeyY = lBranchY - 415;
   }
@@ -155,17 +136,11 @@ function draw() {
   if (monkeyX < -155 && monkeyY + 345 > lBranchY) {
     monkeyY = lBranchY - 345;
   }
-
-  //Right walls
-
-  if (monkeyX > rBranchX + 160) {
-    monkeyX = rBranchX + 160;
+  if (monkeyX > 575) {
+    monkeyX = 575;
   }
-  if (monkeyX > 155 && monkeyY + 415 < rBranchY) {
-    monkeyY = rBranchY - 415;
-  }
-
-  if (monkeyX > 155 && monkeyY + 345 > rBranchY) {
-    monkeyY = rBranchY - 345;
-  }
+  return monkeyX;
 }
+
+// there is another way to make the boundary but then we need to remake the background.
+// let's see if it's possible.
