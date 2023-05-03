@@ -41,40 +41,50 @@ class RightBranch {
     pop();
   }
 }
+function score(s) {
+  push();
+  textSize(32);
+  fill(0, 0, 0);
+  text(s, 10, 30);
+  pop();
+}
 
 let rocks = [];
 
 class Rock {
-  constructor(x, y, velocity) {
+  constructor(x, y, velocity, size) {
     this.x = x;
     this.y = y;
     this.velocity = velocity;
-    this.size = random(50, 100);
+    this.size = size;
   }
   draw() {
     fill(100, 100, 100);
     ellipse(this.x, this.y, this.size);
   }
-  fall() {}
 }
 
 function drawRocks() {
   for (let i = rocks.length - 1; i >= 0; i--) {
     let rock = rocks[i];
     rock.draw();
-    rock.fall();
+    rock.y += rock.velocity + speed;
   }
 }
 
 function spawnRocks() {
-  let rock = new Rock(random(0, 800), -50, random(2, 5));
-  rocks.push(rock);
+  rockInterval -= speed / 2;
+  if (rockInterval <= 0) {
+    let rock = new Rock(random(70, 730), -50, random(1, 3), random(50, 100));
+    rocks.push(rock);
+    rockInterval = random(100, 200) / speed;
+  }
 }
-
+let accelerator = 0;
 let speed = 1;
+let rockInterval = speed;
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
-
 let monkey = new Monkey(0, -300);
 
 function backGround() {
@@ -87,15 +97,20 @@ function backGround() {
 function draw() {
   clear();
   backGround();
-
   leftBranch.draw();
   leftBranch.y += speed;
   rightBranch.draw();
   rightBranch.y += speed;
   monkey.draw();
   monkey.y += speed;
-  spawnRocks();
-  drawRocks();
+  accelerator += 1;
+  score(Math.ceil(accelerator / 10));
+
+  if (accelerator > 200) {
+    speed = 1;
+    spawnRocks();
+    drawRocks();
+  }
 
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkey.y += -speed * 2;
