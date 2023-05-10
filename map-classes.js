@@ -1,3 +1,6 @@
+import Background from "./background.js";
+import Heart from "./heart.js";
+
 createCanvas(800, 650);
 frameRate(144);
 class Monkey {
@@ -94,6 +97,7 @@ function backGround() {
   rect(224, 0, 350, height);
 }
 
+// we need to fix the draw function if you want to use import/export
 function draw() {
   clear();
   backGround();
