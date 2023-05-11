@@ -1,4 +1,3 @@
-//defines canvas and framerate
 createCanvas(800, 650);
 frameRate(144);
 // calsses
@@ -131,6 +130,7 @@ function backGround() {
   rect(224, 0, 350, height);
 }
 
+// we need to fix the draw function if you want to use import/export
 function draw() {
   clear();
   backGround();
