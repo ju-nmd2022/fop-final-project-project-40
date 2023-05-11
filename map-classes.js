@@ -1,5 +1,7 @@
+//defines canvas and framerate
 createCanvas(800, 650);
 frameRate(144);
+// calsses
 class Monkey {
   constructor(x, y) {
     this.x = x;
@@ -41,6 +43,7 @@ class RightBranch {
     pop();
   }
 }
+//couldnt seem to make a class out of this for some reason
 function score(s) {
   push();
   textSize(32);
@@ -48,8 +51,6 @@ function score(s) {
   text(s, 10, 30);
   pop();
 }
-
-let rocks = [];
 
 class Rock {
   constructor(x, y, velocity, size) {
@@ -63,26 +64,62 @@ class Rock {
     ellipse(this.x, this.y, this.size);
   }
 }
-
+// functions that spawns rock based on speed
 function drawRocks() {
   for (let i = rocks.length - 1; i >= 0; i--) {
     let rock = rocks[i];
-    rock.draw();
     rock.y += rock.velocity + speed;
+    rock.draw();
   }
-}
-
-function spawnRocks() {
   rockInterval -= speed / 2;
   if (rockInterval <= 0) {
     let rock = new Rock(random(70, 730), -50, random(1, 3), random(50, 100));
     rocks.push(rock);
-    rockInterval = random(100, 200) / speed;
+    rockInterval = random(200, 300) / speed;
   }
 }
+class Bannana {
+  constructor(x, y, velocity, size) {
+    this.x = x;
+    this.y = y;
+    this.velocity = velocity;
+    this.size = size;
+  }
+  draw() {
+    fill(255, 255, 0);
+    ellipse(this.x, this.y, this.size);
+  }
+}
+
+function drawBannanas() {
+  for (let i = bannanas.length - 1; i >= 0; i--) {
+    let bannana = bannanas[i];
+    bannana.y += speed;
+    bannana.draw();
+  }
+  bannanaInterval -= speed / 10;
+  if (bannanaInterval <= 0) {
+    let bannana = new Bannana(random(245, 555), -50, 1, 50);
+    bannanas.push(bannana);
+    bannanaInterval = random(300, 400) / speed;
+    if (
+      monkey.x + 400 > bannana.x - 50 &&
+      monkey.x + 400 < bannana.x + 50 &&
+      monkey.y + 300 > bannana.y - 50 &&
+      monkey.y + 300 < bannana.y + 50
+    ) {
+      monkey.x = 0;
+    }
+  }
+}
+
+let bannanas = [];
+let rocks = [];
 let accelerator = 0;
 let speed = 1;
+let bannanaInterval = speed;
 let rockInterval = speed;
+// calls classes and defines values
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
 let monkey = new Monkey(0, -300);
@@ -106,12 +143,14 @@ function draw() {
   accelerator += 1;
   score(Math.ceil(accelerator / 10));
 
+  // controlls pace of the game
   if (accelerator > 200) {
     speed = 1;
-    spawnRocks();
     drawRocks();
+    drawBannanas();
   }
 
+  //controlls monkey
   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
     monkey.y += -speed * 2;
   }
