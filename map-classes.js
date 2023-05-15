@@ -1,6 +1,7 @@
+import Heart from "./heart.js";
 createCanvas(800, 650);
 frameRate(144);
-// calsses
+
 class Monkey {
   constructor(x, y) {
     this.x = x;
@@ -14,6 +15,7 @@ class Monkey {
     pop();
   }
 }
+
 class LeftBranch {
   constructor(x, y, width) {
     this.x = x;
@@ -28,6 +30,7 @@ class LeftBranch {
     pop();
   }
 }
+
 class RightBranch {
   constructor(x, y, width) {
     this.x = x;
@@ -42,13 +45,18 @@ class RightBranch {
     pop();
   }
 }
-//couldnt seem to make a class out of this for some reason
-function score(s) {
-  push();
-  textSize(32);
-  fill(0, 0, 0);
-  text(s, 10, 30);
-  pop();
+
+class Score {
+  constructor(s) {
+    this.s = s;
+  }
+  draw() {
+    push();
+    textSize(32);
+    fill(0, 0, 0);
+    text(this.s, 10, 30);
+    pop();
+  }
 }
 
 class Rock {
@@ -63,12 +71,25 @@ class Rock {
     ellipse(this.x, this.y, this.size);
   }
 }
-// functions that spawns rock based on speed
+
 function drawRocks() {
   for (let i = rocks.length - 1; i >= 0; i--) {
     let rock = rocks[i];
     rock.y += rock.velocity + speed;
     rock.draw();
+    if (
+      monkey.x + 375 > rock.x - rock.size / 2 &&
+      monkey.x + 375 < rock.x + rock.size / 2 &&
+      monkey.y + 400 > rock.y - rock.size / 2 &&
+      monkey.y + 400 < rock.y + rock.size / 2 &&
+      rockCollision === true
+    ) {
+      lifes -= 1;
+      rockCollision = false;
+    }
+    if (monkey.y > rock.y + rock.size / 2) {
+      rockCollision = true;
+    }
   }
   rockInterval -= speed / 2;
   if (rockInterval <= 0) {
@@ -77,6 +98,7 @@ function drawRocks() {
     rockInterval = random(200, 300) / speed;
   }
 }
+
 class Bannana {
   constructor(x, y, velocity, size) {
     this.x = x;
@@ -95,33 +117,70 @@ function drawBannanas() {
     let bannana = bannanas[i];
     bannana.y += speed;
     bannana.draw();
+
+    if (
+      monkey.x + 375 > bannana.x - bannana.size / 2 &&
+      monkey.x + 375 < bannana.x + bannana.size / 2 &&
+      monkey.y + 400 > bannana.y - bannana.size / 2 &&
+      monkey.y + 400 < bannana.y + bannana.size / 2 &&
+      bannanaCollision === true
+    ) {
+      bannanaPoints += 1000;
+      bannanaCollision = false;
+      bannanas.splice(i, 1);
+    }
+    if (monkey.y + 3500 > bannana.y + bannana.size / 2) {
+      bannanaCollision = true;
+    }
   }
-  bannanaInterval -= speed / 10;
+  bannanaInterval -= speed / 2;
   if (bannanaInterval <= 0) {
     let bannana = new Bannana(random(245, 555), -50, 1, 50);
     bannanas.push(bannana);
     bannanaInterval = random(300, 400) / speed;
-    if (
-      monkey.x + 400 > bannana.x - 50 &&
-      monkey.x + 400 < bannana.x + 50 &&
-      monkey.y + 300 > bannana.y - 50 &&
-      monkey.y + 300 < bannana.y + 50
-    ) {
-      monkey.x = 0;
-    }
   }
 }
 
+function drawHearts() {
+  for (let i = hearts.length - 1; i >= 0; i--) {
+    let heart = hearts[i];
+    heart.y += speed;
+    heart.draw();
+
+    if (
+      monkey.x + 375 > heart.x - heart.size / 2 &&
+      monkey.x + 375 < heart.x + heart.size / 2 &&
+      monkey.y + 400 > heart.y - heart.size / 2 &&
+      monkey.y + 400 < heart.y + heart.size / 2
+    ) {
+      hearts.splice(i, 1);
+    }
+  }
+  heartInterval -= speed / 10;
+  if (heartInterval <= 0) {
+    let heart = new Heart(random(245, 555), -50, 1, 50);
+    hearts.push(heart);
+    heartInterval = random(300, 400) / speed;
+  }
+}
+let bannanaCollision = true;
+let rockCollision = true;
+let hearts = [];
 let bannanas = [];
 let rocks = [];
 let accelerator = 0;
 let speed = 1;
-let bannanaInterval = speed;
-let rockInterval = speed;
+let bannanaInterval = 0;
+let rockInterval = 0;
+let heartInterval = 0;
 // calls classes and defines values
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
+let score = new Score(0);
 let monkey = new Monkey(0, -300);
+let gameOver = false;
+let lifes = 2;
+let bannanaPoints = 0;
 
 function backGround() {
   background(0, 110, 255);
@@ -141,13 +200,15 @@ function draw() {
   monkey.draw();
   monkey.y += speed;
   accelerator += 1;
-  score(Math.ceil(accelerator / 10));
+  score.s = Math.ceil(accelerator / 10) + bannanaPoints;
+  score.draw();
 
   // controlls pace of the game
   if (accelerator > 200) {
     speed = 1;
     drawRocks();
     drawBannanas();
+    drawHearts();
   }
 
   //controlls monkey
