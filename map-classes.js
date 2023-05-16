@@ -13,7 +13,6 @@ class Monkey {
     fill(0, 200, 0);
     rect(375, 400, 50);
     pop();
-
   }
 }
 
@@ -83,7 +82,7 @@ function drawRocks() {
       monkey.x + 375 < rock.x + rock.size / 2 &&
       monkey.y + 400 > rock.y - rock.size / 2 &&
       monkey.y + 400 < rock.y + rock.size / 2 &&
-      rockCollision === true
+      rockCollision === true && starTimer === false
     ) {
       lifes -= 1;
       rockCollision = false;
@@ -130,7 +129,7 @@ function drawBannanas() {
       bannanaCollision = false;
       bannanas.splice(i, 1);
     }
-    if (monkey.y + 3500 > bannana.y + bannana.size / 2) {
+    if (monkey.y + 350 > bannana.y + bannana.size / 2) {
       bannanaCollision = true;
     }
   }
@@ -153,12 +152,13 @@ function drawHearts() {
       monkey.x + 375 < heart.x + heart.size / 2 &&
       monkey.y + 400 > heart.y - heart.size / 2 &&
       monkey.y + 400 < heart.y + heart.size / 2 &&
-      heartCollision === true && lifes < 3
+      heartCollision === true &&
+      lifes < 3
     ) {
       lifes += 1;
       hearts.splice(i, 1);
     }
-    if (monkey.y + 3500 > heart.y + heart.size / 2) {
+    if (monkey.y + 350 > heart.y + heart.size / 2) {
       heartCollision = true;
     }
   }
@@ -169,40 +169,88 @@ function drawHearts() {
     heartInterval = random(300, 400) / speed;
   }
 }
-function drawUiHearts(){
-  
- 
-  if(lifes === 1){
+function drawUiHearts() {
+  if (lifes === 1) {
     uiHeart1.draw();
-  }
-  else if(lifes === 2){
+  } else if (lifes === 2) {
     uiHeart1.draw();
     uiHeart2.draw();
-
-  }
-  else if(lifes === 3){
+  } else if (lifes === 3) {
     uiHeart1.draw();
     uiHeart2.draw();
     uiHeart3.draw();
-
-  }
-  else{
+  } else {
     gameOver = true;
   }
-
 }
+class Star {
+  constructor(x, y, velocity, size) {
+    this.x = x;
+    this.y = y;
+    this.velocity = velocity;
+    this.size = size;
+  }
+  draw() {
+    fill(255, 255, 150);
+    ellipse(this.x, this.y, this.size);
+  }
+}
+
+function drawStars() {
+  for (let i = stars.length - 1; i >= 0; i--) {
+    let star = stars[i];
+    star.y += speed;
+    star.draw();
+
+    if (
+      monkey.x + 375 > star.x - star.size / 2 &&
+      monkey.x + 375 < star.x + star.size / 2 &&
+      monkey.y + 400 > star.y - star.size / 2 &&
+      monkey.y + 400 < star.y + star.size / 2 &&
+      starCollision === true
+    ) {
+      starCollision = false;
+      stars.splice(i, 1);
+    }
+    if (monkey.y + 350 > star.y + star.size / 2) {
+      starCollision = true;
+    }
+    if(monkey.x + 375 > star.x - star.size / 2 &&
+  monkey.x + 375 < star.x + star.size / 2 &&
+  monkey.y + 400 > star.y - star.size / 2 &&
+  monkey.y + 400 < star.y + star.size / 2 ){
+  starTimer = true;
+  }
+  if (starCounter>=1500){
+    starTimer = false;
+  }
+  if (starTimer === false){
+    starCounter = 0;
+  }
+  }
+  starInterval -= speed / 2;
+  if (starInterval <= 0) {
+    let star = new Star(random(245, 555), -50, 1, 50);
+    stars.push(star);
+    starInterval = random(300, 400) / speed;
+  }
+}
+
 
 let heartCollision = true;
 let bannanaCollision = true;
 let rockCollision = true;
+let starCollision = true;
 let hearts = [];
 let bannanas = [];
 let rocks = [];
+let stars = [];
 let accelerator = 0;
 let speed = 1;
 let bannanaInterval = 0;
 let rockInterval = 0;
 let heartInterval = 0;
+let starInterval = 0;
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
 let uiHeart1 = new Heart(770, 30, 0, 40);
@@ -213,6 +261,8 @@ let monkey = new Monkey(0, -300);
 let gameOver = false;
 let lifes = 2;
 let bannanaPoints = 0;
+let starTimer = false;
+let starCounter = 0;
 
 function backGround() {
   background(0, 110, 255);
@@ -234,7 +284,8 @@ function draw() {
   accelerator += 1;
   score.s = Math.ceil(accelerator / 10) + bannanaPoints;
   score.draw();
-  console.log(lifes);
+  console.log(starTimer);
+  console.log(starCounter);
   drawUiHearts();
 
   // controlls pace of the game
@@ -242,8 +293,12 @@ function draw() {
     speed = 1;
     drawRocks();
     drawBannanas();
-  
+    drawStars();
     drawHearts();
+    
+  }
+  if(starTimer === true){
+  starCounter += 1;
   }
 
   //controlls monkey
@@ -265,7 +320,6 @@ function draw() {
   if (leftBranch.y > 800) {
     leftBranch.y = random(-100, -150);
     leftBranch.x = random(100, 10);
-
   }
   if (rightBranch.y > 800) {
     rightBranch.y = random(-220, -400);
@@ -309,4 +363,5 @@ function draw() {
     monkey.y = rightBranch.y - 345;
   }
 }
+
 
