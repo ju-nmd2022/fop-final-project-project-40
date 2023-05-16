@@ -151,9 +151,14 @@ function drawHearts() {
       monkey.x + 375 > heart.x - heart.size / 2 &&
       monkey.x + 375 < heart.x + heart.size / 2 &&
       monkey.y + 400 > heart.y - heart.size / 2 &&
-      monkey.y + 400 < heart.y + heart.size / 2
+      monkey.y + 400 < heart.y + heart.size / 2 &&
+      heartCollision === true && lifes < 3
     ) {
+      lifes += 1;
       hearts.splice(i, 1);
+    }
+    if (monkey.y + 3500 > heart.y + heart.size / 2) {
+      heartCollision = true;
     }
   }
   heartInterval -= speed / 10;
@@ -163,6 +168,7 @@ function drawHearts() {
     heartInterval = random(300, 400) / speed;
   }
 }
+let heartCollision = true;
 let bannanaCollision = true;
 let rockCollision = true;
 let hearts = [];
@@ -202,12 +208,14 @@ function draw() {
   accelerator += 1;
   score.s = Math.ceil(accelerator / 10) + bannanaPoints;
   score.draw();
+  console.log(lifes);
 
   // controlls pace of the game
   if (accelerator > 200) {
     speed = 1;
     drawRocks();
     drawBannanas();
+  
     drawHearts();
   }
 
@@ -230,6 +238,7 @@ function draw() {
   if (leftBranch.y > 800) {
     leftBranch.y = random(-100, -150);
     leftBranch.x = random(100, 10);
+
   }
   if (rightBranch.y > 800) {
     rightBranch.y = random(-220, -400);
