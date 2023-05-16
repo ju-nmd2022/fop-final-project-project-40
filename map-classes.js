@@ -13,6 +13,7 @@ class Monkey {
     fill(0, 200, 0);
     rect(375, 400, 50);
     pop();
+
   }
 }
 
@@ -168,6 +169,29 @@ function drawHearts() {
     heartInterval = random(300, 400) / speed;
   }
 }
+function drawUiHearts(){
+  
+ 
+  if(lifes === 1){
+    uiHeart1.draw();
+  }
+  else if(lifes === 2){
+    uiHeart1.draw();
+    uiHeart2.draw();
+
+  }
+  else if(lifes === 3){
+    uiHeart1.draw();
+    uiHeart2.draw();
+    uiHeart3.draw();
+
+  }
+  else{
+    gameOver = true;
+  }
+
+}
+
 let heartCollision = true;
 let bannanaCollision = true;
 let rockCollision = true;
@@ -179,9 +203,11 @@ let speed = 1;
 let bannanaInterval = 0;
 let rockInterval = 0;
 let heartInterval = 0;
-// calls classes and defines values
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
+let uiHeart1 = new Heart(770, 30, 0, 40);
+let uiHeart2 = new Heart(720, 30, 0, 40);
+let uiHeart3 = new Heart(670, 30, 0, 40);
 let score = new Score(0);
 let monkey = new Monkey(0, -300);
 let gameOver = false;
@@ -209,6 +235,7 @@ function draw() {
   score.s = Math.ceil(accelerator / 10) + bannanaPoints;
   score.draw();
   console.log(lifes);
+  drawUiHearts();
 
   // controlls pace of the game
   if (accelerator > 200) {
@@ -282,3 +309,4 @@ function draw() {
     monkey.y = rightBranch.y - 345;
   }
 }
+
