@@ -82,7 +82,8 @@ function drawRocks() {
       monkey.x + 375 < rock.x + rock.size / 2 &&
       monkey.y + 400 > rock.y - rock.size / 2 &&
       monkey.y + 400 < rock.y + rock.size / 2 &&
-      rockCollision === true && starTimer === false
+      rockCollision === true &&
+      starTimer === false
     ) {
       lifes -= 1;
       rockCollision = false;
@@ -215,18 +216,20 @@ function drawStars() {
     if (monkey.y + 350 > star.y + star.size / 2) {
       starCollision = true;
     }
-    if(monkey.x + 375 > star.x - star.size / 2 &&
-  monkey.x + 375 < star.x + star.size / 2 &&
-  monkey.y + 400 > star.y - star.size / 2 &&
-  monkey.y + 400 < star.y + star.size / 2 ){
-  starTimer = true;
-  }
-  if (starCounter>=1500){
-    starTimer = false;
-  }
-  if (starTimer === false){
-    starCounter = 0;
-  }
+    if (
+      monkey.x + 375 > star.x - star.size / 2 &&
+      monkey.x + 375 < star.x + star.size / 2 &&
+      monkey.y + 400 > star.y - star.size / 2 &&
+      monkey.y + 400 < star.y + star.size / 2
+    ) {
+      starTimer = true;
+    }
+    if (starCounter >= 1500) {
+      starTimer = false;
+    }
+    if (starTimer === false) {
+      starCounter = 0;
+    }
   }
   starInterval -= speed / 2;
   if (starInterval <= 0) {
@@ -235,22 +238,78 @@ function drawStars() {
     starInterval = random(300, 400) / speed;
   }
 }
+class Rocket {
+  constructor(x, y, velocity, size) {
+    this.x = x;
+    this.y = y;
+    this.velocity = velocity;
+    this.size = size;
+  }
+  draw() {
+    fill(0, 0, 0);
+    ellipse(this.x, this.y, this.size);
+  }
+}
 
+function drawRockets() {
+  for (let i = rockets.length - 1; i >= 0; i--) {
+    let rocket = rockets[i];
+    rocket.y += speed;
+    rocket.draw();
+
+    if (
+      monkey.x + 375 > rocket.x - rocket.size / 2 &&
+      monkey.x + 375 < rocket.x + rocket.size / 2 &&
+      monkey.y + 400 > rocket.y - rocket.size / 2 &&
+      monkey.y + 400 < rocket.y + rocket.size / 2 &&
+      rocketCollision === true
+    ) {
+      rocketCollision = false;
+      rockets.splice(i, 1);
+    }
+    if (monkey.y + 350 > rocket.y + rocket.size / 2) {
+      rocketCollision = true;
+    }
+    if (
+      monkey.x + 375 > rocket.x - rocket.size / 2 &&
+      monkey.x + 375 < rocket.x + rocket.size / 2 &&
+      monkey.y + 400 > rocket.y - rocket.size / 2 &&
+      monkey.y + 400 < rocket.y + rocket.size / 2
+    ) {
+      rocketTimer = true;
+    }
+    if (rocketCounter >= 1500) {
+      rocketTimer = false;
+    }
+    if (rocketTimer === false) {
+      rocketCounter = 0;
+    }
+  }
+  rocketInterval -= speed / 2;
+  if (rocketInterval <= 0) {
+    let rocket = new Rocket(random(245, 555), -50, 1, 50);
+    rockets.push(rocket);
+    rocketInterval = random(300, 400) / speed;
+  }
+}
 
 let heartCollision = true;
 let bannanaCollision = true;
 let rockCollision = true;
 let starCollision = true;
+let rocketCollision = true;
 let hearts = [];
 let bannanas = [];
 let rocks = [];
 let stars = [];
+let rockets = [];
 let accelerator = 0;
 let speed = 1;
 let bannanaInterval = 0;
 let rockInterval = 0;
 let heartInterval = 0;
 let starInterval = 0;
+let rocketInterval = 0;
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
 let uiHeart1 = new Heart(770, 30, 0, 40);
@@ -263,6 +322,8 @@ let lifes = 2;
 let bannanaPoints = 0;
 let starTimer = false;
 let starCounter = 0;
+let rocketTimer = false;
+let rocketCounter = 0;
 
 function backGround() {
   background(0, 110, 255);
@@ -284,8 +345,8 @@ function draw() {
   accelerator += 1;
   score.s = Math.ceil(accelerator / 10) + bannanaPoints;
   score.draw();
-  console.log(starTimer);
-  console.log(starCounter);
+  console.log(rocketTimer);
+  console.log(rocketCounter);
   drawUiHearts();
 
   // controlls pace of the game
@@ -295,10 +356,21 @@ function draw() {
     drawBannanas();
     drawStars();
     drawHearts();
-    
+    drawRockets();
   }
-  if(starTimer === true){
-  starCounter += 1;
+  if (starTimer === true) {
+    starCounter += 1;
+  }
+  if (rocketTimer === true) {
+    rocketCounter += 1;
+    if (monkey.x > 0) {
+      monkey.x -= 2;
+    } else {
+      monkey.x += 2;
+    }
+    monkey.y = 0;
+
+    speed = speed * 3;
   }
 
   //controlls monkey
@@ -363,5 +435,6 @@ function draw() {
     monkey.y = rightBranch.y - 345;
   }
 }
+
 
 
