@@ -1,5 +1,11 @@
+html {
+   margin: 0;
+   display: flex;
+   margin-top: 8em;
+   align-items: center;
+   justify-content: center;  
+}
 
-
-#heart, #stone, #star {
+#heart, #stone, #star, #background {
     display: none;
 }

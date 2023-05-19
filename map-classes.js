@@ -1,6 +1,18 @@
-import Heart from "./heart.js";
-createCanvas(800, 650);
-frameRate(144);
+import { Heart } from "./heart.js";
+import { Bannana } from "./bannana.js";
+import { Star } from "./star.js";
+
+let backgroundImage;
+function preload() {
+  backgroundImage = loadImage("pics/background.png");
+}
+
+function setup() {
+  createCanvas(800, 650);
+  background(backgroundImage);
+  frameRate(144);
+} 
+
 
 class Monkey {
   constructor(x, y) {
@@ -100,19 +112,6 @@ function drawRocks() {
   }
 }
 
-class Bannana {
-  constructor(x, y, velocity, size) {
-    this.x = x;
-    this.y = y;
-    this.velocity = velocity;
-    this.size = size;
-  }
-  draw() {
-    fill(255, 255, 0);
-    ellipse(this.x, this.y, this.size);
-  }
-}
-
 function drawBannanas() {
   for (let i = bannanas.length - 1; i >= 0; i--) {
     let bannana = bannanas[i];
@@ -184,18 +183,18 @@ function drawUiHearts() {
     gameOver = true;
   }
 }
-class Star {
-  constructor(x, y, velocity, size) {
-    this.x = x;
-    this.y = y;
-    this.velocity = velocity;
-    this.size = size;
-  }
-  draw() {
-    fill(255, 255, 150);
-    ellipse(this.x, this.y, this.size);
-  }
-}
+// class Star {
+//   constructor(x, y, velocity, size) {
+//     this.x = x;
+//     this.y = y;
+//     this.velocity = velocity;
+//     this.size = size;
+//   }
+//   draw() {
+//     fill(255, 255, 150);
+//     ellipse(this.x, this.y, this.size);
+//   }
+// }
 
 function drawStars() {
   for (let i = stars.length - 1; i >= 0; i--) {
@@ -325,17 +324,17 @@ let starCounter = 0;
 let rocketTimer = false;
 let rocketCounter = 0;
 
-function backGround() {
-  background(0, 110, 255);
-  noStroke();
+function tree() {
   fill(100, 60, 30);
   rect(224, 0, 350, height);
 }
 
+
 // we need to fix the draw function if you want to use import/export
 function draw() {
   clear();
-  backGround();
+  background(backgroundImage);
+  tree();
   leftBranch.draw();
   leftBranch.y += speed;
   rightBranch.draw();
