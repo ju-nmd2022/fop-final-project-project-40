@@ -2,15 +2,23 @@ import { Heart } from "./heart.js";
 import { Bannana } from "./bannana.js";
 import { Star } from "./star.js";
 
-let backgroundImage;
+let backgroundImage,
+    starImage,
+    heartImage,
+    stoneImage;
+
+
 function preload() {
   backgroundImage = loadImage("pics/background.png");
+  starImage = loadImage("pics/star.png");
+  heartImage = loadImage("pics/heart.png");
+  stoneImage = loadImage("pics/stone.png");
 }
 
 function setup() {
   createCanvas(800, 650);
   background(backgroundImage);
-  frameRate(144);
+  frameRate(144); 
 } 
 
 
@@ -183,18 +191,6 @@ function drawUiHearts() {
     gameOver = true;
   }
 }
-// class Star {
-//   constructor(x, y, velocity, size) {
-//     this.x = x;
-//     this.y = y;
-//     this.velocity = velocity;
-//     this.size = size;
-//   }
-//   draw() {
-//     fill(255, 255, 150);
-//     ellipse(this.x, this.y, this.size);
-//   }
-// }
 
 function drawStars() {
   for (let i = stars.length - 1; i >= 0; i--) {
@@ -232,9 +228,9 @@ function drawStars() {
   }
   starInterval -= speed / 2;
   if (starInterval <= 0) {
-    let star = new Star(random(245, 555), -50, 1, 50);
+    let star = new Star(random(245, 555), -50, 1, 50, starImage);
     stars.push(star);
-    starInterval = random(300, 400) / speed;
+    starInterval = random(300, 400) / speed; 
   }
 }
 class Rocket {
