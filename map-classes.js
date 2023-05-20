@@ -1,18 +1,19 @@
 import { Heart } from "./heart.js";
 import { Bannana } from "./bannana.js";
 import { Star } from "./star.js";
+import { Rock } from "./rock.js";
 
 let backgroundImage,
     starImage,
     heartImage,
-    stoneImage;
+    rockImage;
 
 
 function preload() {
   backgroundImage = loadImage("pics/background.png");
   starImage = loadImage("pics/star.png");
   heartImage = loadImage("pics/heart.png");
-  stoneImage = loadImage("pics/stone.png");
+  rockImage = loadImage("pics/rock.png");
 }
 
 function setup() {
@@ -79,18 +80,6 @@ class Score {
   }
 }
 
-class Rock {
-  constructor(x, y, velocity, size) {
-    this.x = x;
-    this.y = y;
-    this.velocity = velocity;
-    this.size = size;
-  }
-  draw() {
-    fill(100, 100, 100);
-    ellipse(this.x, this.y, this.size);
-  }
-}
 
 function drawRocks() {
   for (let i = rocks.length - 1; i >= 0; i--) {
@@ -114,7 +103,7 @@ function drawRocks() {
   }
   rockInterval -= speed / 2;
   if (rockInterval <= 0) {
-    let rock = new Rock(random(70, 730), -50, random(1, 3), random(50, 100));
+    let rock = new Rock(random(70, 730), -50, random(1, 3), random(50, 100), rockImage);
     rocks.push(rock);
     rockInterval = random(200, 300) / speed;
   }
@@ -177,6 +166,7 @@ function drawHearts() {
     heartInterval = random(300, 400) / speed;
   }
 }
+
 function drawUiHearts() {
   if (lifes === 1) {
     uiHeart1.draw();
