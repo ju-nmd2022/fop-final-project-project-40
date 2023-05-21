@@ -2,6 +2,7 @@ import { Heart } from "./heart.js";
 import { Bannana } from "./bannana.js";
 import { Star } from "./star.js";
 import { Rock } from "./rock.js";
+import { TreeStem } from "./tree-stem.js";
 
 let backgroundImage,
     starImage,
@@ -22,6 +23,10 @@ function setup() {
   frameRate(144); 
 } 
 
+function tree() {
+  treeStem = new TreeStem(400 , 0, 350, 800);
+  treeStem.draw();
+}
 
 class Monkey {
   constructor(x, y) {
@@ -309,11 +314,6 @@ let starTimer = false;
 let starCounter = 0;
 let rocketTimer = false;
 let rocketCounter = 0;
-
-function tree() {
-  fill(100, 60, 30);
-  rect(224, 0, 350, height);
-}
 
 
 // we need to fix the draw function if you want to use import/export
