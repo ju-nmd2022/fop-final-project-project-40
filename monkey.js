@@ -1,10 +1,10 @@
 export class Monkey {
-    constructor(x, y, monkeyLeftImg, monkeyRightImg) {
+    constructor(x, y, monkeyLeftImage, monkeyRightImage) {
       this.x = x;
       this.y = y;
-      this.monkeyLeftImg = monkeyLeftImg;
-      this.monkeyRightImg = monkeyRightImg;
-      this.image = this.monkeyRightImg;
+      this.monkeyLeftImage = monkeyLeftImage;
+      this.monkeyRightImage = monkeyRightImage;
+      this.image = this.monkeyRightImage;
     }
   
     moveUp() {
@@ -17,15 +17,16 @@ export class Monkey {
   
     moveLeft() {
       this.x += -speed - 1;
-      this.image = this.monkeyLeftImg;
+      this.image = this.monkeyLeftImage;
     }
   
     moveRight() {
       this.x += +speed + 1;
-      this.image = this.monkeyRightImg;
+      this.image = this.monkeyRightImage;
     }
   
     display() {
       image(this.image, this.x, this.y, 50, 50);
     }
   }
+

@@ -32,3 +32,36 @@ function draw() {
   clear();
   drawRocks();
 }
+
+// import { Monkey } from "./monkey.js";
+
+// let backgroundImage,
+//     monkeyLeftImage,
+//     monkeyRightImage,
+
+    
+
+// function preload() {
+//   backgroundImage = loadImage("pics/background.png");
+//   monkeyLeftImage = loadImage("pics/monkey2.png");
+//   monkeyRightImage = loadImage("pics/monkey1.png");
+// }
+
+// let monkey = new Monkey(0, -300, monkeyLeftImage, monkeyRightImage);
+
+// function monkeyMove() {
+//   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
+//     monkey.moveUp();
+//   }
+
+//   if (keyIsDown(DOWN_ARROW)) {
+//     monkey.moveDown();
+//   }
+//   if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+//     monkey.moveLeft();
+//   }
+
+//   if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+//     monkey.moveRight();
+//   }
+// }
