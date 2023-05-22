@@ -3,8 +3,11 @@ import { Bannana } from "./bannana.js";
 import { Star } from "./star.js";
 import { Rock } from "./rock.js";
 import { TreeStem } from "./tree-stem.js";
+import { Monkey } from "./monkey.js";
 
 let backgroundImage,
+    monkeyLeftImage,
+    monkeyRightImage,
     starImage,
     heartImage,
     rockImage;
@@ -12,6 +15,8 @@ let backgroundImage,
 
 function preload() {
   backgroundImage = loadImage("pics/background.png");
+  monkeyLeftImage = loadImage("pics/monkey2.png");
+  monkeyRightImage = loadImage("pics/monkey1.png");
   starImage = loadImage("pics/star.png");
   heartImage = loadImage("pics/heart.png");
   rockImage = loadImage("pics/rock.png");
@@ -28,19 +33,21 @@ function tree() {
   treeStem.draw();
 }
 
-class Monkey {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-  draw() {
-    push();
-    translate(this.x, this.y);
-    fill(0, 200, 0);
-    rect(375, 400, 50);
-    pop();
-  }
-}
+// class Monkey {
+//   constructor(x, y) {
+//     this.x = x;
+//     this.y = y;
+//   }
+//   draw() {
+//     push();
+//     translate(this.x, this.y);
+//     fill(0, 200, 0);
+//     rect(375, 400, 50);
+//     pop();
+//   }
+// }
+
+let monkey = new Monkey(0, -300, monkeyLeftImage, monkeyRightImage);
 
 class LeftBranch {
   constructor(x, y, width) {
@@ -306,7 +313,7 @@ let uiHeart1 = new Heart(770, 30, 0, 40);
 let uiHeart2 = new Heart(720, 30, 0, 40);
 let uiHeart3 = new Heart(670, 30, 0, 40);
 let score = new Score(0);
-let monkey = new Monkey(0, -300);
+// let monkey = new Monkey(0, -300);
 let gameOver = false;
 let lifes = 2;
 let bannanaPoints = 0;
@@ -325,7 +332,8 @@ function draw() {
   leftBranch.y += speed;
   rightBranch.draw();
   rightBranch.y += speed;
-  monkey.draw();
+  // monkey.draw();
+  monkeyMove();
   monkey.y += speed;
   accelerator += 1;
   score.s = Math.ceil(accelerator / 10) + bannanaPoints;
@@ -359,20 +367,37 @@ function draw() {
   }
 
   //controlls monkey
-  if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
-    monkey.y += -speed * 2;
-  }
+  // if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
+  //   monkey.y += -speed * 2;
+  // }
 
-  if (keyIsDown(DOWN_ARROW)) {
-    monkey.y += +speed;
-  }
-  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-    monkey.x += -speed - 1;
-  }
+  // if (keyIsDown(DOWN_ARROW)) {
+  //   monkey.y += +speed;
+  // }
+  // if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+  //   monkey.x += -speed - 1;
+  // }
 
-  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-    monkey.x += +speed + 1;
-  }
+  // if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+  //   monkey.x += +speed + 1;
+  // }
+
+  function monkeyMove() {
+      if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
+        monkey.moveUp();
+      }
+    
+      if (keyIsDown(DOWN_ARROW)) {
+        monkey.moveDown();
+      }
+      if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+        monkey.moveLeft();
+      }
+    
+      if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+        monkey.moveRight();
+      }
+    }
 
   if (leftBranch.y > 800) {
     leftBranch.y = random(-100, -150);
