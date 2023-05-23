@@ -31,9 +31,9 @@ function setup() {
 function tree() {
   treeStem = new TreeStem(400, 0, 350, 800);
   treeStem.draw();
-}
+} 
 
-let monkey = new Monkey(0, -300, monkeyClimbImages);
+let monkey = new Monkey(400, 100, monkeyClimbImages);
 
 
 class LeftBranch {

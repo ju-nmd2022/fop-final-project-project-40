@@ -53,7 +53,7 @@ export class Monkey {
   }
 
   display() {
-    if (this.image) { // Check if the image is not null
+    if (this.image) { 
       image(this.image, this.x, this.y, 50, 50);
     }
   }
