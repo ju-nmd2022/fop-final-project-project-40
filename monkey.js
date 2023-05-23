@@ -1,13 +1,14 @@
 export class Monkey {
-  constructor(x, y, monkeyClimbImages) {
+  constructor(x, y, size, monkeyClimbImages) {
     this.x = x;
     this.y = y;
+    this.size = size;
     this.monkeyClimbImages = monkeyClimbImages;
     this.animationIndex = 0;
     this.animationSpeed = 0.2;
     this.isMoving = false;
     this.animationFrame = null;
-    this.image = null; 
+    this.image = null;
   }
 
   moveUp() {
@@ -53,8 +54,8 @@ export class Monkey {
   }
 
   display() {
-    if (this.image) { 
-      image(this.image, this.x, this.y, 50, 50);
+    if (this.image) {
+      image(this.image, this.x, this.y, this.size, this.size);
     }
   }
 }
