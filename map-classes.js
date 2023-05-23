@@ -33,7 +33,7 @@ function tree() {
   treeStem.draw();
 } 
 
-let monkey = new Monkey(400, 100, monkeyClimbImages);
+
 
 
 class LeftBranch {
@@ -87,10 +87,10 @@ function drawRocks() {
     }
     rock.draw();
     if (
-      monkey.x + 375 > rock.x - rock.size / 2 &&
-      monkey.x + 375 < rock.x + rock.size / 2 &&
-      monkey.y + 400 > rock.y - rock.size / 2 &&
-      monkey.y + 400 < rock.y + rock.size / 2 &&
+      monkey.x  > rock.x - rock.size / 2 &&
+      monkey.x < rock.x + rock.size / 2 &&
+      monkey.y > rock.y - rock.size / 2 &&
+      monkey.y  < rock.y + rock.size / 2 &&
       rockCollision === true &&
       starTimer === false
     ) {
@@ -127,10 +127,10 @@ function drawBannanas() {
     bannana.draw();
 
     if (
-      monkey.x + 375 > bannana.x - bannana.size / 2 &&
-      monkey.x + 375 < bannana.x + bannana.size / 2 &&
-      monkey.y + 400 > bannana.y - bannana.size / 2 &&
-      monkey.y + 400 < bannana.y + bannana.size / 2 &&
+      monkey.x > bannana.x - bannana.size / 2 &&
+      monkey.x  < bannana.x + bannana.size / 2 &&
+      monkey.y  > bannana.y - bannana.size / 2 &&
+      monkey.y  < bannana.y + bannana.size / 2 &&
       bannanaCollision === true
     ) {
       bannanaPoints += 1000;
@@ -160,10 +160,10 @@ function drawHearts() {
     heart.draw();
 
     if (
-      monkey.x + 375 > heart.x - heart.size / 2 &&
-      monkey.x + 375 < heart.x + heart.size / 2 &&
-      monkey.y + 400 > heart.y - heart.size / 2 &&
-      monkey.y + 400 < heart.y + heart.size / 2 &&
+      monkey.x > heart.x - heart.size / 2 &&
+      monkey.x < heart.x + heart.size / 2 &&
+      monkey.y > heart.y - heart.size / 2 &&
+      monkey.y < heart.y + heart.size / 2 &&
       heartCollision === true &&
       lifes < 3
     ) {
@@ -187,17 +187,17 @@ function drawHearts() {
 
 function drawUiHearts() {
   if (lifes === 1) {
-    let uiHeart1 = new Heart(770, 30, 40, heartImage);
+    let uiHeart1 = new Heart(760, 10, 35, heartImage);
     uiHeart1.draw();
   } else if (lifes === 2) {
-    let uiHeart1 = new Heart(720, 30, 40, heartImage);
-    let uiHeart2 = new Heart(670, 30, 40, heartImage);
+    let uiHeart1 = new Heart(760, 10, 35, heartImage);
+    let uiHeart2 = new Heart(720, 10, 35, heartImage);
     uiHeart1.draw();
     uiHeart2.draw();
   } else if (lifes === 3) {
-    let uiHeart1 = new Heart(770, 30, 40, heartImage);
-    let uiHeart2 = new Heart(720, 30, 40, heartImage);
-    let uiHeart3 = new Heart(670, 30, 40, heartImage);
+    let uiHeart1 = new Heart(760, 10, 35, heartImage);
+    let uiHeart2 = new Heart(720, 10, 35, heartImage);
+    let uiHeart3 = new Heart(680, 10, 35, heartImage);
     uiHeart1.draw();
     uiHeart2.draw();
     uiHeart3.draw();
@@ -216,10 +216,10 @@ function drawStars() {
 
 
     if (
-      monkey.x + 375 > star.x - star.size / 2 &&
-      monkey.x + 375 < star.x + star.size / 2 &&
-      monkey.y + 400 > star.y - star.size / 2 &&
-      monkey.y + 400 < star.y + star.size / 2 &&
+      monkey.x  > star.x - star.size / 2 &&
+      monkey.x  < star.x + star.size / 2 &&
+      monkey.y  > star.y - star.size / 2 &&
+      monkey.y  < star.y + star.size / 2 &&
       starCollision === true
     ) {
       starCollision = false;
@@ -229,10 +229,10 @@ function drawStars() {
       starCollision = true;
     }
     if (
-      monkey.x + 375 > star.x - star.size / 2 &&
-      monkey.x + 375 < star.x + star.size / 2 &&
-      monkey.y + 400 > star.y - star.size / 2 &&
-      monkey.y + 400 < star.y + star.size / 2
+      monkey.x  > star.x - star.size / 2 &&
+      monkey.x  < star.x + star.size / 2 &&
+      monkey.y  > star.y - star.size / 2 &&
+      monkey.y  < star.y + star.size / 2
     ) {
       starTimer = true;
     }
@@ -263,10 +263,10 @@ function drawRockets() {
     rocket.draw();
 
     if (
-      monkey.x + 375 > rocket.x - rocket.size / 2 &&
-      monkey.x + 375 < rocket.x + rocket.size / 2 &&
-      monkey.y + 400 > rocket.y - rocket.size / 2 &&
-      monkey.y + 400 < rocket.y + rocket.size / 2 &&
+      monkey.x > rocket.x - rocket.size / 2 &&
+      monkey.x  < rocket.x + rocket.size / 2 &&
+      monkey.y  > rocket.y - rocket.size / 2 &&
+      monkey.y  < rocket.y + rocket.size / 2 &&
       rocketCollision === true
     ) {
       rocketCollision = false;
@@ -276,10 +276,10 @@ function drawRockets() {
       rocketCollision = true;
     }
     if (
-      monkey.x + 375 > rocket.x - rocket.size / 2 &&
-      monkey.x + 375 < rocket.x + rocket.size / 2 &&
-      monkey.y + 400 > rocket.y - rocket.size / 2 &&
-      monkey.y + 400 < rocket.y + rocket.size / 2
+      monkey.x  > rocket.x - rocket.size / 2 &&
+      monkey.x  < rocket.x + rocket.size / 2 &&
+      monkey.y  > rocket.y - rocket.size / 2 &&
+      monkey.y  < rocket.y + rocket.size / 2
     ) {
       rocketTimer = true;
     }
@@ -319,7 +319,7 @@ let starInterval = 0;
 let rocketInterval = 0;
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
-
+let monkey = new Monkey(400, 100, 50, monkeyClimbImages);
 let score = new Score(0);
 let gameOver = false;
 let lifes = 2;
@@ -352,7 +352,7 @@ function draw() {
   monkey.y += speed;
   accelerator += 1;
 }
-console.log(gameIsRunning);
+
 
   //controlls monkey
   function keyPressed() {
@@ -400,6 +400,10 @@ console.log(gameIsRunning);
     gameOver = true;
 
    }
+   if (monkey.y > 900) {
+    gameOver = true;
+    
+   }
    if (gameOver === true){
     gameIsRunning = false;
    }
@@ -408,17 +412,17 @@ console.log(gameIsRunning);
   }
   if (rocketTimer === true) {
     rocketCounter += 1;
-    if (monkey.x > 0) {
+    if (monkey.x > 400) {
       monkey.x -= 2;
     } else {
       monkey.x += 2;
     }
-    if (monkey.y < 0) {
-      monkey.y += speed * 2;
+    if (monkey.y <= 300) {
+      monkey.y +=  speed*2;
     } else {
-      monkey.y = speed * 2;
+      monkey.y -= speed * 5;
     }
-    speed = speed * 3;
+    speed += speed * 3;
   }
  
 
@@ -430,7 +434,9 @@ console.log(gameIsRunning);
     rightBranch.y = random(-220, -400);
     rightBranch.width = random(180, 100);
   }
-
+  //console.log(monkey.x);
+  console.log(monkey.y);
+/*
   if (
     (monkey.x < -155 && monkey.y + 420 < leftBranch.x) ||
     (monkey.x < -155 && monkey.y + 340 > leftBranch.y)
@@ -466,7 +472,7 @@ console.log(gameIsRunning);
 
   if (monkey.x > 155 && monkey.y + 345 > rightBranch.y) {
     monkey.y = rightBranch.y - 345;
-  }
+  }*/
 } 
 
 
