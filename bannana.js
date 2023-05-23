@@ -1,13 +1,13 @@
 export class Bannana {
-    constructor(x, y, velocity, size) {
-      this.x = x;
-      this.y = y;
-      this.velocity = velocity;
-      this.size = size;
-    }
-    draw() {
-      fill(255, 255, 0);
-      ellipse(this.x, this.y, this.size);
-    }
+  constructor(x, y, velocity, size, image) {
+    this.x = x;
+    this.y = y;
+    this.velocity = velocity;
+    this.size = size;
+    this.image = image;
   }
+  draw() {
+    image(this.image, this.x, this.y, this.size, this.size);
+  }
+}
 

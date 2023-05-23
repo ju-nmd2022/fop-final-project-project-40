@@ -6,13 +6,15 @@ import { Heart } from "./heart.js";
 import { Rocket } from "./rocket.js";
 import { Monkey } from "./monkey.js";
 
-let backgroundImage, starImage, heartImage, rockImage;
+let backgroundImage, starImage, heartImage, rockImage, bannanaImage, rocketImage;
 
 function preload() {
   backgroundImage = loadImage("pics/background.png");
   starImage = loadImage("pics/star.png");
   heartImage = loadImage("pics/heart.png");
   rockImage = loadImage("pics/rock.png");
+  bannanaImage = loadImage("pics/bannana.png");
+  rocketImage = loadImage("pics/rocket.png");
 } 
 
 const monkeyClimbImages = [
@@ -144,7 +146,7 @@ function drawBannanas() {
   }
   bannanaInterval -= speed / 2;
   if (bannanaInterval <= 0) {
-    let bannana = new Bannana(random(245, 555), random(-50, -555), 1, 50);
+    let bannana = new Bannana(random(245, 555), random(-50, -555), 1, 50, bannanaImage);
     bannanas.push(bannana);
     bannanaInterval = random(300, 400) / speed;
   }
@@ -246,7 +248,7 @@ function drawStars() {
   }
   starInterval -= speed / 2;
   if (starInterval <= 0) {
-    let star = new Star(random(245, 555), random(-50, -555), 1, 50, starImage);
+    let star = new Star(random(245, 555), -50, 1, 50, starImage);
     stars.push(star);
     starInterval = random(300, 400) / speed;
   }
@@ -292,7 +294,7 @@ function drawRockets() {
   }
   rocketInterval -= speed / 2;
   if (rocketInterval <= 0) {
-    let rocket = new Rocket(random(245, 555), -50, 1, 50);
+    let rocket = new Rocket(random(245, 555), random(-50, -555), 1, 50, rocketImage);
     rockets.push(rocket);
     rocketInterval = random(300, 400) / speed;
   }
