@@ -34,8 +34,6 @@ function tree() {
 } 
 
 
-
-
 class LeftBranch {
   constructor(x, y, width) {
     this.x = x;
@@ -110,7 +108,7 @@ function drawRocks() {
       random(70, 730),
       -100,
       random(1, 3),
-      random(50, 100),
+      random(80, 130),
       rockImage
     );
     rocks.push(rock);
@@ -146,7 +144,7 @@ function drawBannanas() {
   }
   bannanaInterval -= speed / 2;
   if (bannanaInterval <= 0) {
-    let bannana = new Bannana(random(245, 555), random(-50, -555), 1, 50, bannanaImage);
+    let bannana = new Bannana(random(245, 555), random(-50, -555), 1, 80, bannanaImage);
     bannanas.push(bannana);
     bannanaInterval = random(300, 400) / speed;
   }
@@ -319,7 +317,7 @@ let starInterval = 0;
 let rocketInterval = 0;
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
-let monkey = new Monkey(400, 100, 50, monkeyClimbImages);
+let monkey = new Monkey(400, 100, 80, monkeyClimbImages);
 let score = new Score(0);
 let gameOver = false;
 let lifes = 2;
