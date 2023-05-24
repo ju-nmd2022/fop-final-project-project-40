@@ -319,6 +319,9 @@ function playAgainMenu(){
   highScoresButton.draw();
   mainMenuButton.draw();
 }
+function startMenu(){
+  playButton.draw();
+}
 function gameRestarting(){
   gameIsRunning = true;
   gameOver = false;
@@ -368,6 +371,7 @@ let rocketInterval = 0;
 let playAgainButton = new Button(width/2 -75, 200, 100, 40, 20, "Play Again");
 let highScoresButton = new Button(width/2 -75, 280, 100, 40, 20, "High Scores");
 let mainMenuButton = new Button(width/2 -75, 360, 100, 40, 20, "Main Menu");
+let playButton = new Button(width/2 -75, 300, 100, 40, 20, "Play");
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
 let monkey = new Monkey(360, 100, 80, monkeyClimbImages);
@@ -381,23 +385,33 @@ let rocketTimer = false;
 let rocketCounter = 0;
 let gameIsRunning = true;
 let gameRestart = false;
+let gameHasStarted = false;
 
 // we need to fix the draw function if you want to use import/export
 function draw() {
   clear();
- 
   background(backgroundImage);
+  if (gameHasStarted === false){
+  startMenu();
+  }
+  if (mouseIsPressed) {
+    if (playButton.hitTest(mouseX, mouseY)) {
+      gameHasStarted = true;
+    }
+
+  }
+  if (gameHasStarted === true){
   tree();
   score.draw();
   leftBranch.draw();
   rightBranch.draw();
-  // monkey.draw();
   score.s = Math.ceil(accelerator / 10) + bannanaPoints;
   drawUiHearts();
   monkey.startAnimation();
   console.log(gameRestart); 
   keyPressed();
   keyReleased();
+
   
   monkey.display();
   if (mouseIsPressed) {
@@ -412,6 +426,7 @@ function draw() {
     monkey.y += speed;
     accelerator += 1;
   }
+}
 
   //controlls monkey
   function keyPressed() {
@@ -493,19 +508,20 @@ function draw() {
     rightBranch.y = random(-220, -400);
     rightBranch.width = random(180, 100);
   }
+  
+  if (
+    (monkey.x < 225 && monkey.y  < leftBranch.x) ||
+    (monkey.x < 225 && monkey.y > leftBranch.y)
+  ) {
+    monkey.x = 255;
+  }
+  if (
+    (monkey.x > 575 && monkey.y + 420 < rightBranch.y) ||
+    (monkey.x > 575 && monkey.y + 340 > rightBranch.y)
+  ) {
+    monkey.x = 575;
+  }
   /*
-  if (
-    (monkey.x < -155 && monkey.y + 420 < leftBranch.x) ||
-    (monkey.x < -155 && monkey.y + 340 > leftBranch.y)
-  ) {
-    monkey.x = -155;
-  }
-  if (
-    (monkey.x > 155 && monkey.y + 420 < rightBranch.y) ||
-    (monkey.x > 155 && monkey.y + 340 > rightBranch.y)
-  ) {
-    monkey.x = 155;
-  }
   //Left walls
   if (monkey.x < leftBranch.x - 380) {
     monkey.x = leftBranch.x - 380;
@@ -530,7 +546,9 @@ function draw() {
   if (monkey.x > 155 && monkey.y + 345 > rightBranch.y) {
     monkey.y = rightBranch.y - 345;
   }*/
+
 }
+
  
 
 
