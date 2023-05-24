@@ -1,67 +1,100 @@
-let speed = 2;
-let rockInterval = speed;
+let x, y; // position
+let angle = 0; // angle of rotation
+let speed = 0.02; // angular speed
+let radiusX; // x-axis radius of rotation
+let radiusY; // y-axis radius of rotation
+let diameter = 400; // size
+let rockInterval = 0;
 let rocks = [];
+let laserCounter = 0;
+let lasers = true;
+
+function setup() {
+  frameRate(60);
+  createCanvas(800, 600);
+  x = 100;
+  y = 100;
+  radiusX = random(100, 150); // Randomize the x-axis radius
+  radiusY = random(10, 20); // Randomize the y-axis radius
+}
+class Monkey {
+  constructor(x, y, size) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.image = image;
+  }
+  draw() {
+    rect(this.x, this.y, this.size);
+  }
+}
+let monkey = new Monkey(400, 500, 40, 40);
 class Rock {
   constructor(x, y, velocity, size) {
     this.x = x;
     this.y = y;
     this.velocity = velocity;
     this.size = size;
+    this.image = image;
   }
   draw() {
-    fill(100, 100, 100);
-    ellipse(this.x, this.y, this.size);
+    push();
+    fill(0, 255, 0);
+    strokeWeight(0);
+    rect(this.x, this.y, 10, this.size);
+    pop();
   }
 }
-
 function drawRocks() {
   for (let i = rocks.length - 1; i >= 0; i--) {
     let rock = rocks[i];
-    rock.y += rock.velocity + speed;
+    rock.y += rock.velocity;
     rock.draw();
   }
-  rockInterval -= speed / 2;
-  if (rockInterval <= 0) {
-    let rock = new Rock(random(70, 730), -50, random(1, 3), random(50, 100));
+  rockInterval -= 2;
+  if (rockInterval <= 0 && lasers === true) {
+    let rock = new Rock(x, y, 5, 50);
     rocks.push(rock);
-    rockInterval = random(100, 200) / speed;
+    rockInterval = random(200, 300);
+  }
+  laserCounter += 1;
+  if (laserCounter === 1000) {
+    lasers = false;
+  }
+}
+class BigLaser {
+  constructor(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+  draw() {
+    push();
+    fill(0, 255, 0);
+    strokeWeight(0);
+    rect(this.x, this.y, this.width, this.height);
+    pop();
   }
 }
 
 function draw() {
-  clear();
+  background(220);
   drawRocks();
+  monkey.draw();
+
+  if (lasers === false) {
+    let bigLaser = new BigLaser(x - 30, y, 50, 600);
+    bigLaser.draw();
+  }
+  // Update position based on the rotation
+  x = 300 + cos(angle) * radiusX;
+  y = 100 + sin(angle) * radiusY;
+
+  // Update the angle for smooth rotation
+  angle += speed;
+
+  // Draw ellipse
+  ellipse(x, y - 30, 200, 110);
+  ellipse(x, y, diameter, 100);
 }
-
-// import { Monkey } from "./monkey.js";
-
-// let backgroundImage,
-//     monkeyLeftImage,
-//     monkeyRightImage,
-
-    
-
-// function preload() {
-//   backgroundImage = loadImage("pics/background.png");
-//   monkeyLeftImage = loadImage("pics/monkey2.png");
-//   monkeyRightImage = loadImage("pics/monkey1.png");
-// }
-
-// let monkey = new Monkey(0, -300, monkeyLeftImage, monkeyRightImage);
-
-// function monkeyMove() {
-//   if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
-//     monkey.moveUp();
-//   }
-
-//   if (keyIsDown(DOWN_ARROW)) {
-//     monkey.moveDown();
-//   }
-//   if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-//     monkey.moveLeft();
-//   }
-
-//   if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-//     monkey.moveRight();
-//   }
-// }
