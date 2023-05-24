@@ -5,8 +5,14 @@ import { TreeStem } from "./tree-stem.js";
 import { Heart } from "./heart.js";
 import { Rocket } from "./rocket.js";
 import { Monkey } from "./monkey.js";
+import { Buttons } from "./buttons.js";
 
-let backgroundImage, starImage, heartImage, rockImage, bannanaImage, rocketImage;
+let backgroundImage,
+  starImage,
+  heartImage,
+  rockImage,
+  bannanaImage,
+  rocketImage;
 
 function preload() {
   backgroundImage = loadImage("pics/background.png");
@@ -15,7 +21,7 @@ function preload() {
   rockImage = loadImage("pics/rock.png");
   bannanaImage = loadImage("pics/bannana.png");
   rocketImage = loadImage("pics/rocket.png");
-} 
+}
 
 const monkeyClimbImages = [
   loadImage("pics/monkey2.png"),
@@ -31,8 +37,7 @@ function setup() {
 function tree() {
   treeStem = new TreeStem(400, 0, 350, 800);
   treeStem.draw();
-} 
-
+}
 
 class LeftBranch {
   constructor(x, y, width) {
@@ -80,17 +85,18 @@ class Score {
 function drawRocks() {
   for (let i = rocks.length - 1; i >= 0; i--) {
     let rock = rocks[i];
-    if(gameIsRunning === true){
-    rock.y += rock.velocity + speed;
+    if (gameIsRunning === true) {
+      rock.y += rock.velocity + speed;
     }
     rock.draw();
     if (
-      monkey.x  > rock.x - rock.size / 2 &&
+      monkey.x > rock.x - rock.size / 2 &&
       monkey.x < rock.x + rock.size / 2 &&
       monkey.y > rock.y - rock.size / 2 &&
-      monkey.y  < rock.y + rock.size / 2 &&
+      monkey.y < rock.y + rock.size / 2 &&
       rockCollision === true &&
-      starTimer === false
+      starTimer === false &&
+      rocketTimer === false
     ) {
       lifes -= 1;
       rockCollision = false;
@@ -108,7 +114,7 @@ function drawRocks() {
       random(70, 730),
       -100,
       random(1, 3),
-      random(80, 130),
+      random(50, 100),
       rockImage
     );
     rocks.push(rock);
@@ -119,16 +125,16 @@ function drawRocks() {
 function drawBannanas() {
   for (let i = bannanas.length - 1; i >= 0; i--) {
     let bannana = bannanas[i];
-    if(gameIsRunning === true){
-    bannana.y += speed;
+    if (gameIsRunning === true) {
+      bannana.y += speed;
     }
     bannana.draw();
 
     if (
       monkey.x > bannana.x - bannana.size / 2 &&
-      monkey.x  < bannana.x + bannana.size / 2 &&
-      monkey.y  > bannana.y - bannana.size / 2 &&
-      monkey.y  < bannana.y + bannana.size / 2 &&
+      monkey.x < bannana.x + bannana.size / 2 &&
+      monkey.y > bannana.y - bannana.size / 2 &&
+      monkey.y < bannana.y + bannana.size / 2 &&
       bannanaCollision === true
     ) {
       bannanaPoints += 1000;
@@ -144,7 +150,13 @@ function drawBannanas() {
   }
   bannanaInterval -= speed / 2;
   if (bannanaInterval <= 0) {
-    let bannana = new Bannana(random(245, 555), random(-50, -555), 1, 80, bannanaImage);
+    let bannana = new Bannana(
+      random(245, 555),
+      random(-50, -555),
+      1,
+      50,
+      bannanaImage
+    );
     bannanas.push(bannana);
     bannanaInterval = random(300, 400) / speed;
   }
@@ -152,8 +164,8 @@ function drawBannanas() {
 function drawHearts() {
   for (let i = hearts.length - 1; i >= 0; i--) {
     let heart = hearts[i];
-    if(gameIsRunning === true){
-    heart.y += speed;
+    if (gameIsRunning === true) {
+      heart.y += speed;
     }
     heart.draw();
 
@@ -207,17 +219,16 @@ function drawUiHearts() {
 function drawStars() {
   for (let i = stars.length - 1; i >= 0; i--) {
     let star = stars[i];
-    if(gameIsRunning === true){
-    star.y += speed;
+    if (gameIsRunning === true) {
+      star.y += speed;
     }
     star.draw();
 
-
     if (
-      monkey.x  > star.x - star.size / 2 &&
-      monkey.x  < star.x + star.size / 2 &&
-      monkey.y  > star.y - star.size / 2 &&
-      monkey.y  < star.y + star.size / 2 &&
+      monkey.x > star.x - star.size / 2 &&
+      monkey.x < star.x + star.size / 2 &&
+      monkey.y > star.y - star.size / 2 &&
+      monkey.y < star.y + star.size / 2 &&
       starCollision === true
     ) {
       starCollision = false;
@@ -227,10 +238,10 @@ function drawStars() {
       starCollision = true;
     }
     if (
-      monkey.x  > star.x - star.size / 2 &&
-      monkey.x  < star.x + star.size / 2 &&
-      monkey.y  > star.y - star.size / 2 &&
-      monkey.y  < star.y + star.size / 2
+      monkey.x > star.x - star.size / 2 &&
+      monkey.x < star.x + star.size / 2 &&
+      monkey.y > star.y - star.size / 2 &&
+      monkey.y < star.y + star.size / 2
     ) {
       starTimer = true;
     }
@@ -255,16 +266,16 @@ function drawStars() {
 function drawRockets() {
   for (let i = rockets.length - 1; i >= 0; i--) {
     let rocket = rockets[i];
-    if(gameIsRunning === true){
-    rocket.y += speed;
+    if (gameIsRunning === true) {
+      rocket.y += speed;
     }
     rocket.draw();
 
     if (
       monkey.x > rocket.x - rocket.size / 2 &&
-      monkey.x  < rocket.x + rocket.size / 2 &&
-      monkey.y  > rocket.y - rocket.size / 2 &&
-      monkey.y  < rocket.y + rocket.size / 2 &&
+      monkey.x < rocket.x + rocket.size / 2 &&
+      monkey.y > rocket.y - rocket.size / 2 &&
+      monkey.y < rocket.y + rocket.size / 2 &&
       rocketCollision === true
     ) {
       rocketCollision = false;
@@ -274,10 +285,10 @@ function drawRockets() {
       rocketCollision = true;
     }
     if (
-      monkey.x  > rocket.x - rocket.size / 2 &&
-      monkey.x  < rocket.x + rocket.size / 2 &&
-      monkey.y  > rocket.y - rocket.size / 2 &&
-      monkey.y  < rocket.y + rocket.size / 2
+      monkey.x > rocket.x - rocket.size / 2 &&
+      monkey.x < rocket.x + rocket.size / 2 &&
+      monkey.y > rocket.y - rocket.size / 2 &&
+      monkey.y < rocket.y + rocket.size / 2
     ) {
       rocketTimer = true;
     }
@@ -292,11 +303,50 @@ function drawRockets() {
   }
   rocketInterval -= speed / 2;
   if (rocketInterval <= 0) {
-    let rocket = new Rocket(random(245, 555), random(-50, -555), 1, 50, rocketImage);
+    let rocket = new Rocket(
+      random(245, 555),
+      random(-50, -555),
+      1,
+      50,
+      rocketImage
+    );
     rockets.push(rocket);
     rocketInterval = random(300, 400) / speed;
   }
-} 
+}
+function playAgainMenu(){
+  playAgainButton.draw();
+  highScoresButton.draw();
+  mainMenuButton.draw();
+}
+function gameRestarting(){
+  gameIsRunning = true;
+  gameOver = false;
+  gameRestart = false;
+  accelerator = 0;
+  speed = 1;
+  bannanaInterval = 0;
+  rockInterval = 0;
+  heartInterval = 0;
+  starInterval = 0;
+  rocketInterval = 0;
+  bannanaPoints = 0;
+  starTimer = false;
+  starCounter = 0;
+  rocketTimer = false;
+  rocketCounter = 0;
+  lifes = 2;
+
+  leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
+  rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
+  monkey = new Monkey(360, 100, 80, monkeyClimbImages);
+  score = new Score(0);
+  hearts = [];
+  bannanas = [];
+  rocks = [];
+  stars = [];
+  rockets = [];
+}
 
 let heartCollision = true;
 let bannanaCollision = true;
@@ -315,9 +365,12 @@ let rockInterval = 0;
 let heartInterval = 0;
 let starInterval = 0;
 let rocketInterval = 0;
+let playAgainButton = new Button(width/2 -75, 200, 100, 40, 20, "Play Again");
+let highScoresButton = new Button(width/2 -75, 280, 100, 40, 20, "High Scores");
+let mainMenuButton = new Button(width/2 -75, 360, 100, 40, 20, "Main Menu");
 let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
 let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
-let monkey = new Monkey(400, 100, 80, monkeyClimbImages);
+let monkey = new Monkey(360, 100, 80, monkeyClimbImages);
 let score = new Score(0);
 let gameOver = false;
 let lifes = 2;
@@ -327,102 +380,110 @@ let starCounter = 0;
 let rocketTimer = false;
 let rocketCounter = 0;
 let gameIsRunning = true;
+let gameRestart = false;
 
 // we need to fix the draw function if you want to use import/export
 function draw() {
   clear();
-
+ 
   background(backgroundImage);
   tree();
-  score.draw();  
+  score.draw();
   leftBranch.draw();
   rightBranch.draw();
   // monkey.draw();
   score.s = Math.ceil(accelerator / 10) + bannanaPoints;
   drawUiHearts();
   monkey.startAnimation();
+  console.log(gameRestart); 
   keyPressed();
-  keyReleased();  
-  monkey.display(); 
-  if(gameIsRunning === true){
-  leftBranch.y += speed;
-  rightBranch.y += speed;
-  monkey.y += speed;
-  accelerator += 1;
-}
+  keyReleased();
+  
+  monkey.display();
+  if (mouseIsPressed) {
+    if (playAgainButton.hitTest(mouseX, mouseY)) {
+      gameRestarting();
+    }
 
+  }
+  if (gameIsRunning === true) {
+    leftBranch.y += speed;
+    rightBranch.y += speed;
+    monkey.y += speed;
+    accelerator += 1;
+  }
 
   //controlls monkey
   function keyPressed() {
     if ((keyIsDown(UP_ARROW) || keyIsDown(87)) && gameIsRunning === true) {
       monkey.moveUp();
     }
-  
+
     if (keyIsDown(DOWN_ARROW) && gameIsRunning === true) {
       monkey.moveDown();
     }
     if ((keyIsDown(LEFT_ARROW) || keyIsDown(65)) && gameIsRunning === true) {
       monkey.moveLeft();
     }
-  
+
     if ((keyIsDown(RIGHT_ARROW) || keyIsDown(68)) && gameIsRunning === true) {
-      monkey.moveRight(); 
-    }}
-    
-    function keyReleased() {
-      if (
-        !keyIsDown(UP_ARROW) &&
-        !keyIsDown(DOWN_ARROW) &&
-        !keyIsDown(LEFT_ARROW) &&
-        !keyIsDown(RIGHT_ARROW) &&
-        !keyIsDown(87) &&
-        !keyIsDown(65) &&
-        !keyIsDown(68)
-      ) {
-        monkey.stopAnimation();
-      }
+      monkey.moveRight();
     }
+  }
+
+  function keyReleased() {
+    if (
+      !keyIsDown(UP_ARROW) &&
+      !keyIsDown(DOWN_ARROW) &&
+      !keyIsDown(LEFT_ARROW) &&
+      !keyIsDown(RIGHT_ARROW) &&
+      !keyIsDown(87) &&
+      !keyIsDown(65) &&
+      !keyIsDown(68)
+    ) {
+      monkey.stopAnimation();
+    }
+  }
 
   // controlls pace of the game
   if (accelerator > 200) {
     speed = 1;
-    
+
     drawRocks();
     drawBannanas();
     drawStars();
     drawHearts();
     drawRockets();
-  
   }
   if (lifes === 0) {
     gameOver = true;
-
-   }
-   if (monkey.y > 900) {
+  }
+  if (monkey.y > 900) {
     gameOver = true;
-    
-   }
-   if (gameOver === true){
+  }
+  if (gameOver === true) {
     gameIsRunning = false;
-   }
+    playAgainMenu();
+    
+  }
   if (starTimer === true) {
     starCounter += 1;
   }
   if (rocketTimer === true) {
     rocketCounter += 1;
-    if (monkey.x > 400) {
+    if (monkey.x > 360) {
       monkey.x -= 2;
     } else {
       monkey.x += 2;
     }
     if (monkey.y <= 300) {
-      monkey.y +=  speed*2;
-    } else {
+      monkey.y += speed * 2;
+    }
+    if (monkey.y > 300) {
       monkey.y -= speed * 5;
     }
     speed += speed * 3;
   }
- 
 
   if (leftBranch.y > 800) {
     leftBranch.y = random(-100, -150);
@@ -432,9 +493,7 @@ function draw() {
     rightBranch.y = random(-220, -400);
     rightBranch.width = random(180, 100);
   }
-  //console.log(monkey.x);
-  console.log(monkey.y);
-/*
+  /*
   if (
     (monkey.x < -155 && monkey.y + 420 < leftBranch.x) ||
     (monkey.x < -155 && monkey.y + 340 > leftBranch.y)
@@ -471,7 +530,8 @@ function draw() {
   if (monkey.x > 155 && monkey.y + 345 > rightBranch.y) {
     monkey.y = rightBranch.y - 345;
   }*/
-} 
+}
+ 
 
 
 
