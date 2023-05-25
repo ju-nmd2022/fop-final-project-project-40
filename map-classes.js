@@ -14,7 +14,12 @@ let backgroundImage,
   bannanaImage,
   rocketImage;
 
-function preload() {
+  function setup() {
+    createCanvas(800, 650);
+    background(backgroundImage);
+    frameRate(144);
+  }
+  function preload() {
   backgroundImage = loadImage("pics/background.png");
   starImage = loadImage("pics/star.png");
   heartImage = loadImage("pics/heart.png");
@@ -28,11 +33,6 @@ const monkeyClimbImages = [
   loadImage("pics/monkey1.png"),
 ];
 
-function setup() {
-  createCanvas(800, 650);
-  background(backgroundImage);
-  frameRate(144);
-}
 
 function tree() {
   treeStem = new TreeStem(400, 0, 350, 800);
