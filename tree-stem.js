@@ -9,7 +9,7 @@ export class TreeStem {
     draw() {
       push();
       translate(this.x, this.y);
-      fill(139, 69, 19); 
+      fill(96, 56, 19); 
       rect(-this.width / 2, 0, this.width, this.height);
       pop();
     }
