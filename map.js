@@ -1,14 +1,19 @@
+function setup() {
+  const canvas = createCanvas(800, 650);
+  canvas.parent("dad");
+  frameRate(144);
+}
+
 let monkeyX = 0;
 let monkeyY = 0;
-let rBranchY = random(300, 500);
-let lBranchY = random(500, 0);
-let rBranchX = random(180, 100);
-let lBranchX = random(100, 10);
+let rBranchY = 1;
+let lBranchY = 1;
+let rBranchX = 1;
+let lBranchX = 1;
 let speed = 1;
 let acceleratorY = 0;
 let score = acceleratorY;
 
-createCanvas(800, 600);
 frameRate(144);
 //tree and sky
 function backGround() {

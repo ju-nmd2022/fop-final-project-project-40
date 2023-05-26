@@ -17,6 +17,7 @@ function setup() {
   radiusX = random(100, 150); // Randomize the x-axis radius
   radiusY = random(10, 20); // Randomize the y-axis radius
 }
+
 class Monkey {
   constructor(x, y, size) {
     this.x = x;
@@ -77,11 +78,27 @@ class BigLaser {
     pop();
   }
 }
+class GameOverScore {
+  constructor(x, y, text) {
+    this.x = x;
+    this.y = y;
+    this.text = text;
+  }
+  draw() {
+    pop();
+    textSize(100);
+    textAlign(CENTER);
+    text(this.text, this.x, this.y);
+    push();
+  }
+}
+let gameOverScore = new GameOverScore(100, 40, 40);
 
 function draw() {
   background(220);
   drawRocks();
   monkey.draw();
+  gameOverScore.draw();
 
   if (lasers === false) {
     let bigLaser = new BigLaser(x - 30, y, 50, 600);

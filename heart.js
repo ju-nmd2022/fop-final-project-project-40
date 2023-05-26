@@ -1,4 +1,4 @@
-export class Heart {
+export default class Heart {
   constructor(x, y, size, image) {
     this.x = x;
     this.y = y;

@@ -1,4 +1,4 @@
-export class Monkey {
+export default class Monkey {
   constructor(x, y, size, monkeyClimbImages) {
     this.x = x;
     this.y = y;
@@ -12,22 +12,18 @@ export class Monkey {
   }
 
   moveUp() {
-    this.y -= speed * 2;
     this.startAnimation();
   }
 
   moveDown() {
-    this.y += speed;
     this.startAnimation();
   }
 
   moveLeft() {
-    this.x -= speed + 1;
     this.startAnimation();
   }
 
   moveRight() {
-    this.x += speed + 1;
     this.startAnimation();
   }
 

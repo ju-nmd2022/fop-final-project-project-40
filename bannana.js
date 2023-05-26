@@ -1,4 +1,4 @@
-export class Bannana {
+export default class Bannana {
   constructor(x, y, velocity, size, image) {
     this.x = x;
     this.y = y;
@@ -10,4 +10,3 @@ export class Bannana {
     image(this.image, this.x, this.y, this.size, this.size);
   }
 }
-

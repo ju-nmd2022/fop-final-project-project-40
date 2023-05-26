@@ -1,4 +1,4 @@
-export class Button {
+export default class Button {
   constructor(x, y, width, height, chamber, text) {
     this.x = x;
     this.y = y;
@@ -8,13 +8,13 @@ export class Button {
     this.chamber = chamber;
   }
   draw() {
-    pop();
+    push();
     strokeWeight(0);
     rect(this.x, this.y, this.width, this.height, this.chamber);
     textSize(this.height / 3);
     textAlign(CENTER);
     text(this.text, this.x + this.width / 2, this.y + this.height / 1.7);
-    push();
+    pop();
   }
   hitTest(x, y) {
     return (
