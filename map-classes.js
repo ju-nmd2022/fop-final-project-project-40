@@ -9,8 +9,8 @@ import Button from "./buttons.js";
 
 function setup() {
   frameRate(500);
-  //const canvas = createCanvas(800, 650);
-  //canvas.parent("dad");
+  const canvas = createCanvas(800, 650);
+  canvas.parent("dad");
 }
 
 window.setup = setup;
@@ -21,14 +21,6 @@ let backgroundImage,
   bannanaImage,
   rocketImage;
 
-<<<<<<< HEAD
-=======
-function setup() {
-  createCanvas(800, 650);
-  background(backgroundImage);
-  frameRate(144);
-}
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
 function preload() {
   backgroundImage = loadImage("pics/background.png");
   starImage = loadImage("pics/star.png");
@@ -45,7 +37,6 @@ let monkeyClimbImages = [];
 
 window.preload = preload;
 
-<<<<<<< HEAD
 class GameOverScore {
   constructor(s) {
     this.s = s;
@@ -59,26 +50,6 @@ class GameOverScore {
     pop();
   }
 }
-=======
-function tree() {
-  treeStem = new TreeStem(400, 0, 350, 800);
-  treeStem.draw();
-}
-
-class GameOverScore {
-  constructor(s) {
-    this.s = s;
-  }
-  draw() {
-    push();
-    textSize(40);
-    fill(0, 0, 0);
-    textAlign(CENTER);
-    text("YOUR SCORE IS " + " " + this.s, 400, 150);
-    pop();
-  }
-}
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
 class LeftBranch {
   constructor(x, y, width) {
     this.x = x;
@@ -411,26 +382,11 @@ let rockInterval = 0;
 let heartInterval = 0;
 let starInterval = 0;
 let rocketInterval = 0;
-<<<<<<< HEAD
 let playAgainButton = new Button(800 / 2 - 75, 200, 100, 40, 20, "Play Again");
 let treeStem = new TreeStem(400, 0, 350, 800);
 let playButton = new Button(800 / 2 - 75, 300, 100, 40, 20, "Play");
 let leftBranch = new LeftBranch(0, 400, 50);
 let rightBranch = new RightBranch(2, 450, 120);
-=======
-let playAgainButton = new Button(
-  width / 2 - 75,
-  200,
-  100,
-  40,
-  20,
-  "Play Again"
-);
-
-let playButton = new Button(width / 2 - 75, 300, 100, 40, 20, "Play");
-let leftBranch = new LeftBranch(0, random(500, 155), random(100, 10));
-let rightBranch = new RightBranch(2, random(300, 500), random(180, 100));
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
 let monkey = new Monkey(360, 100, 80, monkeyClimbImages);
 let score = new Score(0);
 let gameOverScore = new GameOverScore(0);
@@ -449,8 +405,6 @@ let gameHasStarted = false;
 function draw() {
   clear();
 
-  console.log(monkeyClimbImages);
-
   background(backgroundImage);
   if (gameHasStarted === false) {
     startMenu();
@@ -464,12 +418,7 @@ function draw() {
   if (gameHasStarted === true) {
     leftBranch.draw();
     rightBranch.draw();
-<<<<<<< HEAD
     treeStem.draw();
-=======
-    tree();
-
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
     score.draw();
     score.s = Math.ceil(accelerator / 10) + bannanaPoints;
     gameOverScore.s = Math.ceil(accelerator / 10) + bannanaPoints;
@@ -477,10 +426,6 @@ function draw() {
     monkey.startAnimation();
     keyPressed();
     keyReleased();
-<<<<<<< HEAD
-=======
-
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
     monkey.display();
     if (mouseIsPressed) {
       if (playAgainButton.hitTest(mouseX, mouseY)) {
@@ -550,11 +495,7 @@ function draw() {
   if (gameOver === true) {
     gameIsRunning = false;
     playAgainMenu();
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
     lifes = 0;
   }
   if (starTimer === true) {
@@ -586,24 +527,11 @@ function draw() {
   }
 
   if (monkey.x < 225 - monkey.size / 2) {
-<<<<<<< HEAD
     monkey.x = 225 - monkey.size / 2;
-=======
-    monkey.x = 22 - monkey.size / 2;
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
   }
   if (monkey.x > 575 - monkey.size / 2) {
     monkey.x = 575 - monkey.size / 2;
   }
 }
-<<<<<<< HEAD
 window.draw = draw;
-=======
 
-
- 
-
-
-
-
->>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
