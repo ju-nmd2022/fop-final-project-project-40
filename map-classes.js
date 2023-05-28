@@ -412,6 +412,7 @@ function draw() {
   if (mouseIsPressed) {
     if (playButton.hitTest(mouseX, mouseY)) {
       gameHasStarted = true;
+      gameRestarting();
     }
   }
 
