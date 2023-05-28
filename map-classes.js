@@ -680,3 +680,12 @@ function draw() {
   // controlls pace of the game
 }
 window.draw = draw;
+=======
+
+
+ 
+
+
+
+
+>>>>>>> 171c1f43ed40f699dc4ec39b5e5d414003c65ee0
