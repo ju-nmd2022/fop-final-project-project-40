@@ -142,10 +142,10 @@ function drawRocks() {
       rockCollision = true;
     }
     if (rocketTimer === true) {
-      rock.y += rock.velocity + speed * 3;
+      rock.y += rock.velocity + 3;
     }
   }
-  rockInterval -= speed / 2;
+  rockInterval -= 0.5;
   if (rockInterval <= 0 && accelerator < 2000) {
     let rock = new Rock(
       random(70, 730),
@@ -155,7 +155,7 @@ function drawRocks() {
       rockImage
     );
     rocks.push(rock);
-    rockInterval = random(200, 300) / speed;
+    rockInterval = random(200, 300);
   } else if (rockInterval <= 0 && accelerator > 35000) {
     let rock = new Rock(
       random(70, 730),
@@ -273,7 +273,7 @@ function drawBannanas() {
   for (let i = bannanas.length - 1; i >= 0; i--) {
     let bannana = bannanas[i];
     if (gameIsRunning === true) {
-      bannana.y += speed;
+      bannana.y += 1;
     }
     bannana.draw();
 
@@ -292,7 +292,7 @@ function drawBannanas() {
       bannanaCollision = true;
     }
     if (rocketTimer === true) {
-      bannana.y += speed * 3;
+      bannana.y += 3;
     }
   }
   bannanaInterval -= speed / 2;
@@ -312,7 +312,7 @@ function drawHearts() {
   for (let i = hearts.length - 1; i >= 0; i--) {
     let heart = hearts[i];
     if (gameIsRunning === true) {
-      heart.y += speed;
+      heart.y += 1;
     }
     heart.draw();
 
@@ -331,7 +331,7 @@ function drawHearts() {
       heartCollision = true;
     }
     if (rocketTimer === true) {
-      heart.y += speed * 3;
+      heart.y += 3;
     }
   }
   heartInterval -= speed / 10;
@@ -367,7 +367,7 @@ function drawStars() {
   for (let i = stars.length - 1; i >= 0; i--) {
     let star = stars[i];
     if (gameIsRunning === true) {
-      star.y += speed;
+      star.y += 1;
     }
     star.draw();
 
@@ -399,7 +399,7 @@ function drawStars() {
       starCounter = 0;
     }
     if (rocketTimer === true) {
-      star.y += speed * 3;
+      star.y += 3;
     }
   }
   starInterval -= speed / 2;
@@ -414,7 +414,7 @@ function drawRockets() {
   for (let i = rockets.length - 1; i >= 0; i--) {
     let rocket = rockets[i];
     if (gameIsRunning === true) {
-      rocket.y += speed;
+      rocket.y += 1;
     }
     rocket.draw();
 
@@ -445,7 +445,7 @@ function drawRockets() {
     if (rocketTimer === false) {
       rocketCounter = 0;
     } else {
-      rocket.y += speed * 3;
+      rocket.y += 3;
     }
   }
   rocketInterval -= speed / 2;
@@ -638,7 +638,7 @@ function draw() {
     drawStars();
   }
 
-  if (accelerator > 12000) {
+  if (accelerator > 10000) {
     speed = 1;
     drawRockets();
   }
@@ -657,7 +657,7 @@ function draw() {
     if (monkey.y > 300) {
       monkey.y -= speed * 5;
     }
-    speed += speed * 3;
+    speed += 3;
   }
 
   if (leftBranch.y > 800) {
@@ -680,4 +680,5 @@ function draw() {
   // controlls pace of the game
 }
 window.draw = draw;
+
 
