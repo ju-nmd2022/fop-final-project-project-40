@@ -39,7 +39,7 @@ function preload() {
   rocketClimbImages = [
     loadImage("pics/rocket-monkey2.png"),
     loadImage("pics/rocket-monkey1.png"),
-  ];
+  ]; //array pics for monkey's animation
 }
 let monkeyClimbImages = [];
 let starClimbImages = [];
@@ -571,7 +571,7 @@ function draw() {
     }
   }
 
-  //controlls monkey
+  //controlls monkey + animation starts
   function keyPressed() {
     if ((keyIsDown(UP_ARROW) || keyIsDown(87)) && gameIsRunning === true) {
       monkey.moveUp();
@@ -603,7 +603,7 @@ function draw() {
       !keyIsDown(65) &&
       !keyIsDown(68)
     ) {
-      monkey.stopAnimation();
+      monkey.stopAnimation(); //when stop moving the monkey animation stops
     }
   }
 
