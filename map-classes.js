@@ -12,8 +12,9 @@ function setup() {
   const canvas = createCanvas(800, 650);
   canvas.parent("dad");
 }
-
 window.setup = setup;
+
+
 let backgroundImage,
   starImage,
   heartImage,
@@ -119,13 +120,19 @@ class Score {
 }
 
 function drawRocks() {
+  // the array make it posssible to access each rock seperatly and we use decrementing(goes from right to left instead) inorder to not change the order of the array.
   for (let i = rocks.length - 1; i >= 0; i--) {
     let rock = rocks[i];
+    //checks if gameisrunningis true which it always is if gameover is false 
     if (gameIsRunning === true) {
       rock.y += rock.velocity + speed;
     }
 
     rock.draw();
+    /* if non of the power ups are active and monkey collide with a rock lifes 
+    starts to go down with 1. To stop lifes from going down more than one the rockCollision is
+    instantly set to true making it so that only one life is removed 
+    */
     if (
       monkey.x > rock.x - rock.size / 3 &&
       monkey.x < rock.x + rock.size / 1.8 &&
@@ -138,14 +145,17 @@ function drawRocks() {
       lifes -= 1;
       rockCollision = false;
     }
+    // here we make it so that when the rock is higher up than the monkey rockCollision is set to true again making collision possible
     if (monkey.y + rock.size * 3 < rock.y) {
       rockCollision = true;
     }
+    // so that the rocks move faster down when rocketTimer is true
     if (rocketTimer === true) {
       rock.y += rock.velocity + 3;
     }
   }
   rockInterval -= 0.5;
+  //controlls how often rock is created and depending on how big accelerator is. also pushes it to the rocks array
   if (rockInterval <= 0 && accelerator < 2000) {
     let rock = new Rock(
       random(70, 730),
@@ -156,6 +166,7 @@ function drawRocks() {
     );
     rocks.push(rock);
     rockInterval = random(200, 300);
+
   } else if (rockInterval <= 0 && accelerator > 35000) {
     let rock = new Rock(
       random(70, 730),
@@ -268,7 +279,7 @@ function drawRocks() {
     rockInterval = random(150, 250) / speed;
   }
 }
-
+// the following powerups works the same as rock but has the same speed as branches and when it collides with monkey the correspondent bannana is removed from the array
 function drawBannanas() {
   for (let i = bannanas.length - 1; i >= 0; i--) {
     let bannana = bannanas[i];
@@ -308,6 +319,7 @@ function drawBannanas() {
     bannanaInterval = random(300, 400);
   }
 }
+//same as bannana but adds 1 to lifes 
 function drawHearts() {
   for (let i = hearts.length - 1; i >= 0; i--) {
     let heart = hearts[i];
@@ -342,6 +354,7 @@ function drawHearts() {
   }
 }
 
+//displays hearts in the ui depending on how many lifes you have 
 function drawUiHearts() {
   if (lifes === 1) {
     let uiHeart1 = new Heart(760, 10, 35, heartImage);
@@ -362,7 +375,6 @@ function drawUiHearts() {
     gameOver = true;
   }
 }
-
 function drawStars() {
   for (let i = stars.length - 1; i >= 0; i--) {
     let star = stars[i];
@@ -384,6 +396,7 @@ function drawStars() {
     if (monkey.y + 350 > star.y + star.size / 2) {
       starCollision = true;
     }
+    //if monkey collides with StarTimer it is set to true which need to be false inorder for rockcollison to happen it also sets starCounter to starCounter += 1 in the draw function. 
     if (
       monkey.x > star.x - star.size / 2 &&
       monkey.x < star.x + star.size / 2 &&
@@ -392,9 +405,11 @@ function drawStars() {
     ) {
       starTimer = true;
     }
+    //how long startimer is true
     if (starCounter >= 1000) {
       starTimer = false;
     }
+    //resets star counter
     if (starTimer === false) {
       starCounter = 0;
     }
@@ -409,7 +424,7 @@ function drawStars() {
     starInterval = random(1500, 2500);
   }
 }
-
+//works the same as drawStars
 function drawRockets() {
   for (let i = rockets.length - 1; i >= 0; i--) {
     let rocket = rockets[i];
@@ -468,6 +483,8 @@ function playAgainMenu() {
 function startMenu() {
   playButton.draw();
 }
+
+//resets all values 
 function gameRestarting() {
   gameIsRunning = true;
   gameOver = false;
@@ -495,7 +512,7 @@ function gameRestarting() {
   stars = [];
   rockets = [];
 }
-
+// only rocketCollision acctually does something 
 let heartCollision = true;
 let bannanaCollision = true;
 let rockCollision = true;
@@ -506,8 +523,10 @@ let bannanas = [];
 let rocks = [];
 let stars = [];
 let rockets = [];
+// works as a timer for the game and was supposed to controll the speed depending on where how big its value was  
 let accelerator = 0;
 let speed = 1;
+//start value of powerups and rock
 let bannanaInterval = 0;
 let rockInterval = 0;
 let heartInterval = 0;
@@ -525,11 +544,11 @@ let gameOver = false;
 let lifes = 2;
 let bannanaPoints = 0;
 let starTimer = false;
-let starCounter = 0;
 let rocketTimer = false;
+let starCounter = 0;
 let rocketCounter = 0;
+//when gameIsRunning is true all variables that are moving can move and when its false all variables stop moving 
 let gameIsRunning = true;
-let gameRestart = false;
 let gameHasStarted = false;
 
 // we need to fix the draw function if you want to use import/export
@@ -539,18 +558,20 @@ function draw() {
   if (gameHasStarted === false) {
     startMenu();
   }
+  // if mouse is pressed and the mouseX and mouseY are within the values defined in hitTest() the gameRestarting function is triggered and all the values reset
   if (mouseIsPressed) {
     if (playButton.hitTest(mouseX, mouseY)) {
       gameHasStarted = true;
       gameRestarting();
     }
   }
-
+// when gameHasStarted is true all the necessary function for it to run start running
   if (gameHasStarted === true) {
     leftBranch.draw();
     rightBranch.draw();
     treeStem.draw();
     score.draw();
+
     score.s = Math.ceil(accelerator / 10) + bannanaPoints;
     gameOverScore.s = Math.ceil(accelerator / 10) + bannanaPoints;
     drawUiHearts();
@@ -558,6 +579,7 @@ function draw() {
     keyPressed();
     keyReleased();
     monkey.display();
+    // same as before but here all the values are reset as if the game just started
     if (mouseIsPressed) {
       if (playAgainButton.hitTest(mouseX, mouseY)) {
         gameRestarting();
@@ -613,18 +635,21 @@ function draw() {
   if (monkey.y > 900) {
     gameOver = true;
   }
+  //when gameOver is true  gameisRunning us set to false which 
   if (gameOver === true) {
     gameIsRunning = false;
     playAgainMenu();
 
     lifes = 0;
   }
+  //startimer controlls how long the star powerup is active. how long it is active and what it does is defined in drawStars 
   if (starTimer === true) {
     starCounter += 1;
     monkey.monkeyClimbImages = starClimbImages;
   } else {
     monkey.monkeyClimbImages = monkeyClimbImages;
   }
+  //controlls when the diffrent power ups functions are called
   if (accelerator > 200) {
     drawRocks();
     drawBannanas();
@@ -642,7 +667,7 @@ function draw() {
     speed = 1;
     drawRockets();
   }
-
+//rockettimer controlls how long the rocketpowerup is active and makes monkey go to the middle of the screen, how long it is active is defined in drawRockets
   if (rocketTimer === true) {
     rocketCounter += 1;
     monkey.monkeyClimbImages = rocketClimbImages;
@@ -659,7 +684,7 @@ function draw() {
     }
     speed += 3;
   }
-
+//branches respawns with new values each time its y value goes bellow 800
   if (leftBranch.y > 800) {
     leftBranch.y = random(-150, -200);
     leftBranch.x = random(10, 70);
@@ -670,15 +695,16 @@ function draw() {
     rightBranch.width = random(180, 100);
     rightBranch.leafSize = random(70, 110);
   }
-
+//monkey cant go outside tree
   if (monkey.x < 225 - monkey.size / 2) {
     monkey.x = 225 - monkey.size / 2;
   }
   if (monkey.x > 575 - monkey.size / 2) {
     monkey.x = 575 - monkey.size / 2;
   }
-  // controlls pace of the game
+ 
 }
 window.draw = draw;
+
 
 
