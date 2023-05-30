@@ -34,7 +34,7 @@ export default class Monkey {
     }
   }
 
-  animate() {
+  animate() { 
     this.animationIndex += this.animationSpeed;
     if (this.animationIndex >= this.monkeyClimbImages.length) {
       this.animationIndex = 0; //ensure animationIndex do not exceed the limit, to loop the animation
